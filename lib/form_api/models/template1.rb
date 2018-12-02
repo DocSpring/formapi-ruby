@@ -13,10 +13,32 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class InvalidRequest
-    attr_accessor :status
+  class Template1
+    attr_accessor :expiration_interval
 
-    attr_accessor :errors
+    attr_accessor :webhook_url
+
+    attr_accessor :expire_after
+
+    attr_accessor :allow_additional_properties
+
+    attr_accessor :public_submissions
+
+    attr_accessor :slack_webhook_url
+
+    attr_accessor :blockchain_timestamp_verification
+
+    attr_accessor :public_web_form
+
+    attr_accessor :expire_submissions
+
+    attr_accessor :name
+
+    attr_accessor :template_type
+
+    attr_accessor :id
+
+    attr_accessor :redirect_url
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -43,16 +65,38 @@ module FormAPI
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'status' => :'status',
-        :'errors' => :'errors'
+        :'expiration_interval' => :'expiration_interval',
+        :'webhook_url' => :'webhook_url',
+        :'expire_after' => :'expire_after',
+        :'allow_additional_properties' => :'allow_additional_properties',
+        :'public_submissions' => :'public_submissions',
+        :'slack_webhook_url' => :'slack_webhook_url',
+        :'blockchain_timestamp_verification' => :'blockchain_timestamp_verification',
+        :'public_web_form' => :'public_web_form',
+        :'expire_submissions' => :'expire_submissions',
+        :'name' => :'name',
+        :'template_type' => :'template_type',
+        :'id' => :'id',
+        :'redirect_url' => :'redirect_url'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'status' => :'String',
-        :'errors' => :'Array<String>'
+        :'expiration_interval' => :'String',
+        :'webhook_url' => :'String',
+        :'expire_after' => :'Float',
+        :'allow_additional_properties' => :'BOOLEAN',
+        :'public_submissions' => :'BOOLEAN',
+        :'slack_webhook_url' => :'String',
+        :'blockchain_timestamp_verification' => :'BOOLEAN',
+        :'public_web_form' => :'BOOLEAN',
+        :'expire_submissions' => :'BOOLEAN',
+        :'name' => :'String',
+        :'template_type' => :'String',
+        :'id' => :'String',
+        :'redirect_url' => :'String'
       }
     end
 
@@ -64,14 +108,56 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.has_key?(:'expiration_interval')
+        self.expiration_interval = attributes[:'expiration_interval']
       end
 
-      if attributes.has_key?(:'errors')
-        if (value = attributes[:'errors']).is_a?(Array)
-          self.errors = value
-        end
+      if attributes.has_key?(:'webhook_url')
+        self.webhook_url = attributes[:'webhook_url']
+      end
+
+      if attributes.has_key?(:'expire_after')
+        self.expire_after = attributes[:'expire_after']
+      end
+
+      if attributes.has_key?(:'allow_additional_properties')
+        self.allow_additional_properties = attributes[:'allow_additional_properties']
+      end
+
+      if attributes.has_key?(:'public_submissions')
+        self.public_submissions = attributes[:'public_submissions']
+      end
+
+      if attributes.has_key?(:'slack_webhook_url')
+        self.slack_webhook_url = attributes[:'slack_webhook_url']
+      end
+
+      if attributes.has_key?(:'blockchain_timestamp_verification')
+        self.blockchain_timestamp_verification = attributes[:'blockchain_timestamp_verification']
+      end
+
+      if attributes.has_key?(:'public_web_form')
+        self.public_web_form = attributes[:'public_web_form']
+      end
+
+      if attributes.has_key?(:'expire_submissions')
+        self.expire_submissions = attributes[:'expire_submissions']
+      end
+
+      if attributes.has_key?(:'name')
+        self.name = attributes[:'name']
+      end
+
+      if attributes.has_key?(:'template_type')
+        self.template_type = attributes[:'template_type']
+      end
+
+      if attributes.has_key?(:'id')
+        self.id = attributes[:'id']
+      end
+
+      if attributes.has_key?(:'redirect_url')
+        self.redirect_url = attributes[:'redirect_url']
       end
     end
 
@@ -79,35 +165,25 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @errors.nil?
-        invalid_properties.push('invalid value for "errors", errors cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ['error'])
-      return false unless status_validator.valid?(@status)
-      return false if @errors.nil?
+      expiration_interval_validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
+      return false unless expiration_interval_validator.valid?(@expiration_interval)
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] status Object to be assigned
-    def status=(status)
-      validator = EnumAttributeValidator.new('String', ['error'])
-      unless validator.valid?(status)
-        fail ArgumentError, 'invalid value for "status", must be one of #{validator.allowable_values}.'
+    # @param [Object] expiration_interval Object to be assigned
+    def expiration_interval=(expiration_interval)
+      validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
+      unless validator.valid?(expiration_interval)
+        fail ArgumentError, 'invalid value for "expiration_interval", must be one of #{validator.allowable_values}.'
       end
-      @status = status
+      @expiration_interval = expiration_interval
     end
 
     # Checks equality by comparing each attribute.
@@ -115,8 +191,19 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          status == o.status &&
-          errors == o.errors
+          expiration_interval == o.expiration_interval &&
+          webhook_url == o.webhook_url &&
+          expire_after == o.expire_after &&
+          allow_additional_properties == o.allow_additional_properties &&
+          public_submissions == o.public_submissions &&
+          slack_webhook_url == o.slack_webhook_url &&
+          blockchain_timestamp_verification == o.blockchain_timestamp_verification &&
+          public_web_form == o.public_web_form &&
+          expire_submissions == o.expire_submissions &&
+          name == o.name &&
+          template_type == o.template_type &&
+          id == o.id &&
+          redirect_url == o.redirect_url
     end
 
     # @see the `==` method
@@ -128,7 +215,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [status, errors].hash
+      [expiration_interval, webhook_url, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, blockchain_timestamp_verification, public_web_form, expire_submissions, name, template_type, id, redirect_url].hash
     end
 
     # Builds the object from hash

@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**batch_generate_pdfs**](PDFApi.md#batch_generate_pdfs) | **POST** /submissions/batches | Generates multiple PDFs
 [**combine_submissions**](PDFApi.md#combine_submissions) | **POST** /combined_submissions | Merge generated PDFs together
 [**create_data_request_token**](PDFApi.md#create_data_request_token) | **POST** /data_requests/{data_request_id}/tokens | Creates a new data request token for form authentication
+[**create_template**](PDFApi.md#create_template) | **POST** /templates | Upload a new PDF template
 [**expire_combined_submission**](PDFApi.md#expire_combined_submission) | **DELETE** /combined_submissions/{combined_submission_id} | Expire a combined submission
 [**expire_submission**](PDFApi.md#expire_submission) | **DELETE** /submissions/{submission_id} | Expire a PDF submission
 [**generate_pdf**](PDFApi.md#generate_pdf) | **POST** /templates/{template_id}/submissions | Generates a new PDF
@@ -15,6 +16,8 @@ Method | HTTP request | Description
 [**get_data_request**](PDFApi.md#get_data_request) | **GET** /data_requests/{data_request_id} | Look up a submission data request
 [**get_submission**](PDFApi.md#get_submission) | **GET** /submissions/{submission_id} | Check the status of a PDF
 [**get_submission_batch**](PDFApi.md#get_submission_batch) | **GET** /submissions/batches/{submission_batch_id} | Check the status of a submission batch job
+[**get_template**](PDFApi.md#get_template) | **GET** /templates/{template_id} | Check the status of an uploaded template
+[**get_template_schema**](PDFApi.md#get_template_schema) | **GET** /templates/{template_id}/schema | Fetch the JSON schema for a template
 [**get_templates**](PDFApi.md#get_templates) | **GET** /templates | Get a list of all templates
 [**test_authentication**](PDFApi.md#test_authentication) | **GET** /authentication | Test Authentication
 [**update_data_request**](PDFApi.md#update_data_request) | **PUT** /data_requests/{data_request_id} | Update a submission data request
@@ -214,6 +217,57 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
+# **create_template**
+> Template1 create_template(template_document, template_name)
+
+Upload a new PDF template
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+template_document = File.new('/path/to/file') # File | 
+template_name = 'template_name_example' # String | 
+
+begin
+  #Upload a new PDF template
+  result = api_instance.create_template(template_document, template_name)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->create_template: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **template_document** | **File**|  | 
+ **template_name** | **String**|  | 
+
+### Return type
+
+[**Template1**](Template1.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 
@@ -555,6 +609,104 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SubmissionBatch**](SubmissionBatch.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
+# **get_template**
+> Template get_template(template_id)
+
+Check the status of an uploaded template
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+template_id = 'tpl_000000000000000001' # String | 
+
+begin
+  #Check the status of an uploaded template
+  result = api_instance.get_template(template_id)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->get_template: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **template_id** | **String**|  | 
+
+### Return type
+
+[**Template**](Template.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
+# **get_template_schema**
+> Hash&lt;String, Object&gt; get_template_schema(template_id)
+
+Fetch the JSON schema for a template
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+template_id = 'tpl_000000000000000001' # String | 
+
+begin
+  #Fetch the JSON schema for a template
+  result = api_instance.get_template_schema(template_id)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->get_template_schema: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **template_id** | **String**|  | 
+
+### Return type
+
+**Hash&lt;String, Object&gt;**
 
 ### Authorization
 
