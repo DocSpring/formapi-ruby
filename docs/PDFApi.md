@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 
 # **create_template**
-> Template1 create_template(template_document, template_name)
+> PendingTemplate create_template(template_document, template_name)
 
 Upload a new PDF template
 
@@ -259,7 +259,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Template1**](Template1.md)
+[**PendingTemplate**](PendingTemplate.md)
 
 ### Authorization
 

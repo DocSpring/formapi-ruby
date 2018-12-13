@@ -13,22 +13,18 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class CombinedSubmission
-    attr_accessor :metadata
-
-    attr_accessor :expired
-
-    attr_accessor :expires_at
-
-    attr_accessor :download_url
-
-    attr_accessor :submission_ids
-
+  class SubmissionAction
     attr_accessor :id
+
+    attr_accessor :integration_id
 
     attr_accessor :state
 
-    attr_accessor :actions
+    attr_accessor :action_category
+
+    attr_accessor :action_type
+
+    attr_accessor :result_data
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -55,28 +51,24 @@ module FormAPI
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'metadata' => :'metadata',
-        :'expired' => :'expired',
-        :'expires_at' => :'expires_at',
-        :'download_url' => :'download_url',
-        :'submission_ids' => :'submission_ids',
         :'id' => :'id',
+        :'integration_id' => :'integration_id',
         :'state' => :'state',
-        :'actions' => :'actions'
+        :'action_category' => :'action_category',
+        :'action_type' => :'action_type',
+        :'result_data' => :'result_data'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'metadata' => :'Object',
-        :'expired' => :'BOOLEAN',
-        :'expires_at' => :'String',
-        :'download_url' => :'String',
-        :'submission_ids' => :'Array<String>',
         :'id' => :'String',
+        :'integration_id' => :'String',
         :'state' => :'String',
-        :'actions' => :'Array<CombinedSubmissionAction>'
+        :'action_category' => :'String',
+        :'action_type' => :'String',
+        :'result_data' => :'Object'
       }
     end
 
@@ -88,40 +80,28 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'metadata')
-        self.metadata = attributes[:'metadata']
-      end
-
-      if attributes.has_key?(:'expired')
-        self.expired = attributes[:'expired']
-      end
-
-      if attributes.has_key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
-      end
-
-      if attributes.has_key?(:'download_url')
-        self.download_url = attributes[:'download_url']
-      end
-
-      if attributes.has_key?(:'submission_ids')
-        if (value = attributes[:'submission_ids']).is_a?(Array)
-          self.submission_ids = value
-        end
-      end
-
       if attributes.has_key?(:'id')
         self.id = attributes[:'id']
+      end
+
+      if attributes.has_key?(:'integration_id')
+        self.integration_id = attributes[:'integration_id']
       end
 
       if attributes.has_key?(:'state')
         self.state = attributes[:'state']
       end
 
-      if attributes.has_key?(:'actions')
-        if (value = attributes[:'actions']).is_a?(Array)
-          self.actions = value
-        end
+      if attributes.has_key?(:'action_category')
+        self.action_category = attributes[:'action_category']
+      end
+
+      if attributes.has_key?(:'action_type')
+        self.action_type = attributes[:'action_type']
+      end
+
+      if attributes.has_key?(:'result_data')
+        self.result_data = attributes[:'result_data']
       end
     end
 
@@ -129,25 +109,79 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @integration_id.nil?
+        invalid_properties.push('invalid value for "integration_id", integration_id cannot be nil.')
+      end
+
+      if @state.nil?
+        invalid_properties.push('invalid value for "state", state cannot be nil.')
+      end
+
+      if @action_category.nil?
+        invalid_properties.push('invalid value for "action_category", action_category cannot be nil.')
+      end
+
+      if @action_type.nil?
+        invalid_properties.push('invalid value for "action_type", action_type cannot be nil.')
+      end
+
+      if @result_data.nil?
+        invalid_properties.push('invalid value for "result_data", result_data cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'error'])
+      return false if @id.nil?
+      return false if @integration_id.nil?
+      return false if @state.nil?
+      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'failed', 'error'])
       return false unless state_validator.valid?(@state)
+      return false if @action_category.nil?
+      action_category_validator = EnumAttributeValidator.new('String', ['notification', 'file_upload'])
+      return false unless action_category_validator.valid?(@action_category)
+      return false if @action_type.nil?
+      action_type_validator = EnumAttributeValidator.new('String', ['webhook', 'slack_webhook', 'email', 'aws_s3_upload'])
+      return false unless action_type_validator.valid?(@action_type)
+      return false if @result_data.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'error'])
+      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'failed', 'error'])
       unless validator.valid?(state)
         fail ArgumentError, 'invalid value for "state", must be one of #{validator.allowable_values}.'
       end
       @state = state
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] action_category Object to be assigned
+    def action_category=(action_category)
+      validator = EnumAttributeValidator.new('String', ['notification', 'file_upload'])
+      unless validator.valid?(action_category)
+        fail ArgumentError, 'invalid value for "action_category", must be one of #{validator.allowable_values}.'
+      end
+      @action_category = action_category
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] action_type Object to be assigned
+    def action_type=(action_type)
+      validator = EnumAttributeValidator.new('String', ['webhook', 'slack_webhook', 'email', 'aws_s3_upload'])
+      unless validator.valid?(action_type)
+        fail ArgumentError, 'invalid value for "action_type", must be one of #{validator.allowable_values}.'
+      end
+      @action_type = action_type
     end
 
     # Checks equality by comparing each attribute.
@@ -155,14 +189,12 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          metadata == o.metadata &&
-          expired == o.expired &&
-          expires_at == o.expires_at &&
-          download_url == o.download_url &&
-          submission_ids == o.submission_ids &&
           id == o.id &&
+          integration_id == o.integration_id &&
           state == o.state &&
-          actions == o.actions
+          action_category == o.action_category &&
+          action_type == o.action_type &&
+          result_data == o.result_data
     end
 
     # @see the `==` method
@@ -174,7 +206,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [metadata, expired, expires_at, download_url, submission_ids, id, state, actions].hash
+      [id, integration_id, state, action_category, action_type, result_data].hash
     end
 
     # Builds the object from hash

@@ -13,32 +13,18 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class Template1
-    attr_accessor :expiration_interval
-
-    attr_accessor :webhook_url
-
-    attr_accessor :expire_after
-
-    attr_accessor :allow_additional_properties
-
-    attr_accessor :public_submissions
-
-    attr_accessor :slack_webhook_url
-
-    attr_accessor :blockchain_timestamp_verification
-
-    attr_accessor :public_web_form
-
-    attr_accessor :expire_submissions
-
-    attr_accessor :name
-
-    attr_accessor :template_type
-
+  class CombinedSubmissionAction
     attr_accessor :id
 
-    attr_accessor :redirect_url
+    attr_accessor :integration_id
+
+    attr_accessor :state
+
+    attr_accessor :action_category
+
+    attr_accessor :action_type
+
+    attr_accessor :result_data
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -65,38 +51,24 @@ module FormAPI
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'expiration_interval' => :'expiration_interval',
-        :'webhook_url' => :'webhook_url',
-        :'expire_after' => :'expire_after',
-        :'allow_additional_properties' => :'allow_additional_properties',
-        :'public_submissions' => :'public_submissions',
-        :'slack_webhook_url' => :'slack_webhook_url',
-        :'blockchain_timestamp_verification' => :'blockchain_timestamp_verification',
-        :'public_web_form' => :'public_web_form',
-        :'expire_submissions' => :'expire_submissions',
-        :'name' => :'name',
-        :'template_type' => :'template_type',
         :'id' => :'id',
-        :'redirect_url' => :'redirect_url'
+        :'integration_id' => :'integration_id',
+        :'state' => :'state',
+        :'action_category' => :'action_category',
+        :'action_type' => :'action_type',
+        :'result_data' => :'result_data'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'expiration_interval' => :'String',
-        :'webhook_url' => :'String',
-        :'expire_after' => :'Float',
-        :'allow_additional_properties' => :'BOOLEAN',
-        :'public_submissions' => :'BOOLEAN',
-        :'slack_webhook_url' => :'String',
-        :'blockchain_timestamp_verification' => :'BOOLEAN',
-        :'public_web_form' => :'BOOLEAN',
-        :'expire_submissions' => :'BOOLEAN',
-        :'name' => :'String',
-        :'template_type' => :'String',
         :'id' => :'String',
-        :'redirect_url' => :'String'
+        :'integration_id' => :'String',
+        :'state' => :'String',
+        :'action_category' => :'String',
+        :'action_type' => :'String',
+        :'result_data' => :'Object'
       }
     end
 
@@ -108,56 +80,28 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'expiration_interval')
-        self.expiration_interval = attributes[:'expiration_interval']
-      end
-
-      if attributes.has_key?(:'webhook_url')
-        self.webhook_url = attributes[:'webhook_url']
-      end
-
-      if attributes.has_key?(:'expire_after')
-        self.expire_after = attributes[:'expire_after']
-      end
-
-      if attributes.has_key?(:'allow_additional_properties')
-        self.allow_additional_properties = attributes[:'allow_additional_properties']
-      end
-
-      if attributes.has_key?(:'public_submissions')
-        self.public_submissions = attributes[:'public_submissions']
-      end
-
-      if attributes.has_key?(:'slack_webhook_url')
-        self.slack_webhook_url = attributes[:'slack_webhook_url']
-      end
-
-      if attributes.has_key?(:'blockchain_timestamp_verification')
-        self.blockchain_timestamp_verification = attributes[:'blockchain_timestamp_verification']
-      end
-
-      if attributes.has_key?(:'public_web_form')
-        self.public_web_form = attributes[:'public_web_form']
-      end
-
-      if attributes.has_key?(:'expire_submissions')
-        self.expire_submissions = attributes[:'expire_submissions']
-      end
-
-      if attributes.has_key?(:'name')
-        self.name = attributes[:'name']
-      end
-
-      if attributes.has_key?(:'template_type')
-        self.template_type = attributes[:'template_type']
-      end
-
       if attributes.has_key?(:'id')
         self.id = attributes[:'id']
       end
 
-      if attributes.has_key?(:'redirect_url')
-        self.redirect_url = attributes[:'redirect_url']
+      if attributes.has_key?(:'integration_id')
+        self.integration_id = attributes[:'integration_id']
+      end
+
+      if attributes.has_key?(:'state')
+        self.state = attributes[:'state']
+      end
+
+      if attributes.has_key?(:'action_category')
+        self.action_category = attributes[:'action_category']
+      end
+
+      if attributes.has_key?(:'action_type')
+        self.action_type = attributes[:'action_type']
+      end
+
+      if attributes.has_key?(:'result_data')
+        self.result_data = attributes[:'result_data']
       end
     end
 
@@ -165,25 +109,79 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @integration_id.nil?
+        invalid_properties.push('invalid value for "integration_id", integration_id cannot be nil.')
+      end
+
+      if @state.nil?
+        invalid_properties.push('invalid value for "state", state cannot be nil.')
+      end
+
+      if @action_category.nil?
+        invalid_properties.push('invalid value for "action_category", action_category cannot be nil.')
+      end
+
+      if @action_type.nil?
+        invalid_properties.push('invalid value for "action_type", action_type cannot be nil.')
+      end
+
+      if @result_data.nil?
+        invalid_properties.push('invalid value for "result_data", result_data cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      expiration_interval_validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
-      return false unless expiration_interval_validator.valid?(@expiration_interval)
+      return false if @id.nil?
+      return false if @integration_id.nil?
+      return false if @state.nil?
+      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'failed', 'error'])
+      return false unless state_validator.valid?(@state)
+      return false if @action_category.nil?
+      action_category_validator = EnumAttributeValidator.new('String', ['notification', 'file_upload'])
+      return false unless action_category_validator.valid?(@action_category)
+      return false if @action_type.nil?
+      action_type_validator = EnumAttributeValidator.new('String', ['webhook', 'slack_webhook', 'email', 'aws_s3_upload'])
+      return false unless action_type_validator.valid?(@action_type)
+      return false if @result_data.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] expiration_interval Object to be assigned
-    def expiration_interval=(expiration_interval)
-      validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
-      unless validator.valid?(expiration_interval)
-        fail ArgumentError, 'invalid value for "expiration_interval", must be one of #{validator.allowable_values}.'
+    # @param [Object] state Object to be assigned
+    def state=(state)
+      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'failed', 'error'])
+      unless validator.valid?(state)
+        fail ArgumentError, 'invalid value for "state", must be one of #{validator.allowable_values}.'
       end
-      @expiration_interval = expiration_interval
+      @state = state
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] action_category Object to be assigned
+    def action_category=(action_category)
+      validator = EnumAttributeValidator.new('String', ['notification', 'file_upload'])
+      unless validator.valid?(action_category)
+        fail ArgumentError, 'invalid value for "action_category", must be one of #{validator.allowable_values}.'
+      end
+      @action_category = action_category
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] action_type Object to be assigned
+    def action_type=(action_type)
+      validator = EnumAttributeValidator.new('String', ['webhook', 'slack_webhook', 'email', 'aws_s3_upload'])
+      unless validator.valid?(action_type)
+        fail ArgumentError, 'invalid value for "action_type", must be one of #{validator.allowable_values}.'
+      end
+      @action_type = action_type
     end
 
     # Checks equality by comparing each attribute.
@@ -191,19 +189,12 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          expiration_interval == o.expiration_interval &&
-          webhook_url == o.webhook_url &&
-          expire_after == o.expire_after &&
-          allow_additional_properties == o.allow_additional_properties &&
-          public_submissions == o.public_submissions &&
-          slack_webhook_url == o.slack_webhook_url &&
-          blockchain_timestamp_verification == o.blockchain_timestamp_verification &&
-          public_web_form == o.public_web_form &&
-          expire_submissions == o.expire_submissions &&
-          name == o.name &&
-          template_type == o.template_type &&
           id == o.id &&
-          redirect_url == o.redirect_url
+          integration_id == o.integration_id &&
+          state == o.state &&
+          action_category == o.action_category &&
+          action_type == o.action_type &&
+          result_data == o.result_data
     end
 
     # @see the `==` method
@@ -215,7 +206,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [expiration_interval, webhook_url, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, blockchain_timestamp_verification, public_web_form, expire_submissions, name, template_type, id, redirect_url].hash
+      [id, integration_id, state, action_category, action_type, result_data].hash
     end
 
     # Builds the object from hash

@@ -10,5 +10,6 @@ Name | Type | Description | Notes
 **submission_ids** | **Array&lt;String&gt;** |  | [optional] 
 **id** | **String** |  | [optional] 
 **state** | **String** |  | [optional] 
+**actions** | [**Array&lt;CombinedSubmissionAction&gt;**](CombinedSubmissionAction.md) |  | [optional] 
 
 

@@ -239,7 +239,7 @@ module FormAPI
     # @param template_document 
     # @param template_name 
     # @param [Hash] opts the optional parameters
-    # @return [Template1]
+    # @return [PendingTemplate]
     def create_template(template_document, template_name, opts = {})
       data, _status_code, _headers = create_template_with_http_info(template_document, template_name, opts)
       data
@@ -249,7 +249,7 @@ module FormAPI
     # @param template_document 
     # @param template_name 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(Template1, Fixnum, Hash)>] Template1 data, response status code and response headers
+    # @return [Array<(PendingTemplate, Fixnum, Hash)>] PendingTemplate data, response status code and response headers
     def create_template_with_http_info(template_document, template_name, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PDFApi.create_template ...'
@@ -289,7 +289,7 @@ module FormAPI
         :form_params => form_params,
         :body => post_body,
         :auth_names => auth_names,
-        :return_type => 'Template1')
+        :return_type => 'PendingTemplate')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PDFApi#create_template\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

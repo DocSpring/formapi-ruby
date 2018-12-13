@@ -93,7 +93,7 @@ describe 'PDFApi' do
   # @param template_document 
   # @param template_name 
   # @param [Hash] opts the optional parameters
-  # @return [Template1]
+  # @return [PendingTemplate]
   describe 'create_template test' do
     it 'should work' do
       template_document = File.new('/path/to/file') # File | 

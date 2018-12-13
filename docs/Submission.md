@@ -13,5 +13,6 @@ Name | Type | Description | Notes
 **download_url** | **String** |  | [optional] 
 **batch_id** | **String** |  | [optional] 
 **data_requests** | [**Array&lt;SubmissionDataRequest&gt;**](SubmissionDataRequest.md) |  | [optional] 
+**actions** | [**Array&lt;SubmissionAction&gt;**](SubmissionAction.md) |  | [optional] 
 
 
