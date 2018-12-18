@@ -133,7 +133,7 @@ module FormAPI
 
     def initialize
       @scheme = 'https'
-      @host = 'app.formapi.io'
+      @host = 'api.formapi.io'
       @base_path = '/api/v1'
       @api_key = {}
       @api_key_prefix = {}
