@@ -13,24 +13,30 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class CombinedSubmission
-    attr_accessor :metadata
+  class Templatesv2Template
+    attr_accessor :expiration_interval
 
-    attr_accessor :expired
+    attr_accessor :public_web_form
 
-    attr_accessor :expires_at
+    attr_accessor :webhook_url
 
-    attr_accessor :source_pdfs
+    attr_accessor :expire_submissions
 
-    attr_accessor :download_url
+    attr_accessor :expire_after
 
-    attr_accessor :submission_ids
+    attr_accessor :allow_additional_properties
 
-    attr_accessor :id
+    attr_accessor :document
 
-    attr_accessor :state
+    attr_accessor :name
 
-    attr_accessor :actions
+    attr_accessor :public_submissions
+
+    attr_accessor :slack_webhook_url
+
+    attr_accessor :redirect_url
+
+    attr_accessor :blockchain_timestamp_verification
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -57,30 +63,36 @@ module FormAPI
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'metadata' => :'metadata',
-        :'expired' => :'expired',
-        :'expires_at' => :'expires_at',
-        :'source_pdfs' => :'source_pdfs',
-        :'download_url' => :'download_url',
-        :'submission_ids' => :'submission_ids',
-        :'id' => :'id',
-        :'state' => :'state',
-        :'actions' => :'actions'
+        :'expiration_interval' => :'expiration_interval',
+        :'public_web_form' => :'public_web_form',
+        :'webhook_url' => :'webhook_url',
+        :'expire_submissions' => :'expire_submissions',
+        :'expire_after' => :'expire_after',
+        :'allow_additional_properties' => :'allow_additional_properties',
+        :'document' => :'document',
+        :'name' => :'name',
+        :'public_submissions' => :'public_submissions',
+        :'slack_webhook_url' => :'slack_webhook_url',
+        :'redirect_url' => :'redirect_url',
+        :'blockchain_timestamp_verification' => :'blockchain_timestamp_verification'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'metadata' => :'Object',
-        :'expired' => :'BOOLEAN',
-        :'expires_at' => :'String',
-        :'source_pdfs' => :'Array<Object>',
-        :'download_url' => :'String',
-        :'submission_ids' => :'Array<String>',
-        :'id' => :'String',
-        :'state' => :'String',
-        :'actions' => :'Array<CombinedSubmissionAction>'
+        :'expiration_interval' => :'String',
+        :'public_web_form' => :'BOOLEAN',
+        :'webhook_url' => :'String',
+        :'expire_submissions' => :'BOOLEAN',
+        :'expire_after' => :'Float',
+        :'allow_additional_properties' => :'BOOLEAN',
+        :'document' => :'Templatesv2TemplateDocument',
+        :'name' => :'String',
+        :'public_submissions' => :'BOOLEAN',
+        :'slack_webhook_url' => :'String',
+        :'redirect_url' => :'String',
+        :'blockchain_timestamp_verification' => :'BOOLEAN'
       }
     end
 
@@ -92,46 +104,52 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'metadata')
-        self.metadata = attributes[:'metadata']
+      if attributes.has_key?(:'expiration_interval')
+        self.expiration_interval = attributes[:'expiration_interval']
       end
 
-      if attributes.has_key?(:'expired')
-        self.expired = attributes[:'expired']
+      if attributes.has_key?(:'public_web_form')
+        self.public_web_form = attributes[:'public_web_form']
       end
 
-      if attributes.has_key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
+      if attributes.has_key?(:'webhook_url')
+        self.webhook_url = attributes[:'webhook_url']
       end
 
-      if attributes.has_key?(:'source_pdfs')
-        if (value = attributes[:'source_pdfs']).is_a?(Array)
-          self.source_pdfs = value
-        end
+      if attributes.has_key?(:'expire_submissions')
+        self.expire_submissions = attributes[:'expire_submissions']
       end
 
-      if attributes.has_key?(:'download_url')
-        self.download_url = attributes[:'download_url']
+      if attributes.has_key?(:'expire_after')
+        self.expire_after = attributes[:'expire_after']
       end
 
-      if attributes.has_key?(:'submission_ids')
-        if (value = attributes[:'submission_ids']).is_a?(Array)
-          self.submission_ids = value
-        end
+      if attributes.has_key?(:'allow_additional_properties')
+        self.allow_additional_properties = attributes[:'allow_additional_properties']
       end
 
-      if attributes.has_key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.has_key?(:'document')
+        self.document = attributes[:'document']
       end
 
-      if attributes.has_key?(:'state')
-        self.state = attributes[:'state']
+      if attributes.has_key?(:'name')
+        self.name = attributes[:'name']
       end
 
-      if attributes.has_key?(:'actions')
-        if (value = attributes[:'actions']).is_a?(Array)
-          self.actions = value
-        end
+      if attributes.has_key?(:'public_submissions')
+        self.public_submissions = attributes[:'public_submissions']
+      end
+
+      if attributes.has_key?(:'slack_webhook_url')
+        self.slack_webhook_url = attributes[:'slack_webhook_url']
+      end
+
+      if attributes.has_key?(:'redirect_url')
+        self.redirect_url = attributes[:'redirect_url']
+      end
+
+      if attributes.has_key?(:'blockchain_timestamp_verification')
+        self.blockchain_timestamp_verification = attributes[:'blockchain_timestamp_verification']
       end
     end
 
@@ -145,19 +163,19 @@ module FormAPI
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'error'])
-      return false unless state_validator.valid?(@state)
+      expiration_interval_validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
+      return false unless expiration_interval_validator.valid?(@expiration_interval)
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] state Object to be assigned
-    def state=(state)
-      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'error'])
-      unless validator.valid?(state)
-        fail ArgumentError, 'invalid value for "state", must be one of #{validator.allowable_values}.'
+    # @param [Object] expiration_interval Object to be assigned
+    def expiration_interval=(expiration_interval)
+      validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
+      unless validator.valid?(expiration_interval)
+        fail ArgumentError, 'invalid value for "expiration_interval", must be one of #{validator.allowable_values}.'
       end
-      @state = state
+      @expiration_interval = expiration_interval
     end
 
     # Checks equality by comparing each attribute.
@@ -165,15 +183,18 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          metadata == o.metadata &&
-          expired == o.expired &&
-          expires_at == o.expires_at &&
-          source_pdfs == o.source_pdfs &&
-          download_url == o.download_url &&
-          submission_ids == o.submission_ids &&
-          id == o.id &&
-          state == o.state &&
-          actions == o.actions
+          expiration_interval == o.expiration_interval &&
+          public_web_form == o.public_web_form &&
+          webhook_url == o.webhook_url &&
+          expire_submissions == o.expire_submissions &&
+          expire_after == o.expire_after &&
+          allow_additional_properties == o.allow_additional_properties &&
+          document == o.document &&
+          name == o.name &&
+          public_submissions == o.public_submissions &&
+          slack_webhook_url == o.slack_webhook_url &&
+          redirect_url == o.redirect_url &&
+          blockchain_timestamp_verification == o.blockchain_timestamp_verification
     end
 
     # @see the `==` method
@@ -185,7 +206,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [metadata, expired, expires_at, source_pdfs, download_url, submission_ids, id, state, actions].hash
+      [expiration_interval, public_web_form, webhook_url, expire_submissions, expire_after, allow_additional_properties, document, name, public_submissions, slack_webhook_url, redirect_url, blockchain_timestamp_verification].hash
     end
 
     # Builds the object from hash

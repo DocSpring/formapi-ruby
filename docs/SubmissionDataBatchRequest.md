@@ -1,11 +1,13 @@
-# FormAPI::SubmissionBatchData
+# FormAPI::SubmissionDataBatchRequest
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**css** | **String** |  | [optional] 
 **metadata** | **Object** |  | [optional] 
 **test** | **BOOLEAN** |  | [optional] 
+**data** | **Object** |  | [optional] 
 **template_id** | **String** |  | [optional] 
-**submissions** | [**Array&lt;SubmissionDataBatchRequest&gt;**](SubmissionDataBatchRequest.md) |  | 
+**html** | **String** |  | [optional] 
 
 

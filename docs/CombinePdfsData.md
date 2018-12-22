@@ -1,13 +1,12 @@
-# FormAPI::CreateSubmissionDataBatchRequest
+# FormAPI::CombinePdfsData
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**template_id** | **String** |  | 
 **test** | **BOOLEAN** |  | [optional] 
-**data** | **Object** |  | 
-**html** | **String** |  | [optional] 
-**css** | **String** |  | [optional] 
+**source_pdfs** | **Array&lt;Object&gt;** |  | 
 **metadata** | **Object** |  | [optional] 
+**expires_in** | **Integer** |  | [optional] 
+**delete_custom_files** | **BOOLEAN** |  | [optional] 
 
 

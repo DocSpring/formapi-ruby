@@ -13,28 +13,25 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class CreateSubmissionData
+  class CombinePdfsData
     attr_accessor :test
 
-    attr_accessor :data
-
-    attr_accessor :html
-
-    attr_accessor :css
+    attr_accessor :source_pdfs
 
     attr_accessor :metadata
 
-    attr_accessor :data_requests
+    attr_accessor :expires_in
+
+    attr_accessor :delete_custom_files
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'test' => :'test',
-        :'data' => :'data',
-        :'html' => :'html',
-        :'css' => :'css',
+        :'source_pdfs' => :'source_pdfs',
         :'metadata' => :'metadata',
-        :'data_requests' => :'data_requests'
+        :'expires_in' => :'expires_in',
+        :'delete_custom_files' => :'delete_custom_files'
       }
     end
 
@@ -42,11 +39,10 @@ module FormAPI
     def self.openapi_types
       {
         :'test' => :'BOOLEAN',
-        :'data' => :'Object',
-        :'html' => :'String',
-        :'css' => :'String',
+        :'source_pdfs' => :'Array<Object>',
         :'metadata' => :'Object',
-        :'data_requests' => :'Array<CreateSubmissionDataRequestData>'
+        :'expires_in' => :'Integer',
+        :'delete_custom_files' => :'BOOLEAN'
       }
     end
 
@@ -62,26 +58,22 @@ module FormAPI
         self.test = attributes[:'test']
       end
 
-      if attributes.has_key?(:'data')
-        self.data = attributes[:'data']
-      end
-
-      if attributes.has_key?(:'html')
-        self.html = attributes[:'html']
-      end
-
-      if attributes.has_key?(:'css')
-        self.css = attributes[:'css']
+      if attributes.has_key?(:'source_pdfs')
+        if (value = attributes[:'source_pdfs']).is_a?(Array)
+          self.source_pdfs = value
+        end
       end
 
       if attributes.has_key?(:'metadata')
         self.metadata = attributes[:'metadata']
       end
 
-      if attributes.has_key?(:'data_requests')
-        if (value = attributes[:'data_requests']).is_a?(Array)
-          self.data_requests = value
-        end
+      if attributes.has_key?(:'expires_in')
+        self.expires_in = attributes[:'expires_in']
+      end
+
+      if attributes.has_key?(:'delete_custom_files')
+        self.delete_custom_files = attributes[:'delete_custom_files']
       end
     end
 
@@ -89,8 +81,8 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @data.nil?
-        invalid_properties.push('invalid value for "data", data cannot be nil.')
+      if @source_pdfs.nil?
+        invalid_properties.push('invalid value for "source_pdfs", source_pdfs cannot be nil.')
       end
 
       invalid_properties
@@ -99,7 +91,7 @@ module FormAPI
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @data.nil?
+      return false if @source_pdfs.nil?
       true
     end
 
@@ -109,11 +101,10 @@ module FormAPI
       return true if self.equal?(o)
       self.class == o.class &&
           test == o.test &&
-          data == o.data &&
-          html == o.html &&
-          css == o.css &&
+          source_pdfs == o.source_pdfs &&
           metadata == o.metadata &&
-          data_requests == o.data_requests
+          expires_in == o.expires_in &&
+          delete_custom_files == o.delete_custom_files
     end
 
     # @see the `==` method
@@ -125,7 +116,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [test, data, html, css, metadata, data_requests].hash
+      [test, source_pdfs, metadata, expires_in, delete_custom_files].hash
     end
 
     # Builds the object from hash

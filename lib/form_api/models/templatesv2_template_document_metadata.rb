@@ -13,32 +13,50 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class SubmissionBatchData
-    attr_accessor :metadata
+  class Templatesv2TemplateDocumentMetadata
+    attr_accessor :filename
 
-    attr_accessor :test
+    attr_accessor :size
 
-    attr_accessor :template_id
+    attr_accessor :mime_type
 
-    attr_accessor :submissions
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'metadata' => :'metadata',
-        :'test' => :'test',
-        :'template_id' => :'template_id',
-        :'submissions' => :'submissions'
+        :'filename' => :'filename',
+        :'size' => :'size',
+        :'mime_type' => :'mime_type'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'metadata' => :'Object',
-        :'test' => :'BOOLEAN',
-        :'template_id' => :'String',
-        :'submissions' => :'Array<SubmissionDataBatchRequest>'
+        :'filename' => :'String',
+        :'size' => :'Integer',
+        :'mime_type' => :'String'
       }
     end
 
@@ -50,22 +68,16 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'metadata')
-        self.metadata = attributes[:'metadata']
+      if attributes.has_key?(:'filename')
+        self.filename = attributes[:'filename']
       end
 
-      if attributes.has_key?(:'test')
-        self.test = attributes[:'test']
+      if attributes.has_key?(:'size')
+        self.size = attributes[:'size']
       end
 
-      if attributes.has_key?(:'template_id')
-        self.template_id = attributes[:'template_id']
-      end
-
-      if attributes.has_key?(:'submissions')
-        if (value = attributes[:'submissions']).is_a?(Array)
-          self.submissions = value
-        end
+      if attributes.has_key?(:'mime_type')
+        self.mime_type = attributes[:'mime_type']
       end
     end
 
@@ -73,18 +85,25 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @submissions.nil?
-        invalid_properties.push('invalid value for "submissions", submissions cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @submissions.nil?
+      mime_type_validator = EnumAttributeValidator.new('String', ['application/pdf'])
+      return false unless mime_type_validator.valid?(@mime_type)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] mime_type Object to be assigned
+    def mime_type=(mime_type)
+      validator = EnumAttributeValidator.new('String', ['application/pdf'])
+      unless validator.valid?(mime_type)
+        fail ArgumentError, 'invalid value for "mime_type", must be one of #{validator.allowable_values}.'
+      end
+      @mime_type = mime_type
     end
 
     # Checks equality by comparing each attribute.
@@ -92,10 +111,9 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          metadata == o.metadata &&
-          test == o.test &&
-          template_id == o.template_id &&
-          submissions == o.submissions
+          filename == o.filename &&
+          size == o.size &&
+          mime_type == o.mime_type
     end
 
     # @see the `==` method
@@ -107,7 +125,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [metadata, test, template_id, submissions].hash
+      [filename, size, mime_type].hash
     end
 
     # Builds the object from hash

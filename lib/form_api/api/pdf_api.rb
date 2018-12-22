@@ -21,20 +21,20 @@ module FormAPI
     end
     # Generates multiple PDFs
     # @param template_id 
-    # @param create_submission_data_batch_v1 
+    # @param request_body 
     # @param [Hash] opts the optional parameters
     # @return [Array<CreateSubmissionResponse>]
-    def batch_generate_pdf_v1(template_id, create_submission_data_batch_v1, opts = {})
-      data, _status_code, _headers = batch_generate_pdf_v1_with_http_info(template_id, create_submission_data_batch_v1, opts)
+    def batch_generate_pdf_v1(template_id, request_body, opts = {})
+      data, _status_code, _headers = batch_generate_pdf_v1_with_http_info(template_id, request_body, opts)
       data
     end
 
     # Generates multiple PDFs
     # @param template_id 
-    # @param create_submission_data_batch_v1 
+    # @param request_body 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Array<CreateSubmissionResponse>, Fixnum, Hash)>] Array<CreateSubmissionResponse> data, response status code and response headers
-    def batch_generate_pdf_v1_with_http_info(template_id, create_submission_data_batch_v1, opts = {})
+    def batch_generate_pdf_v1_with_http_info(template_id, request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PDFApi.batch_generate_pdf_v1 ...'
       end
@@ -42,9 +42,9 @@ module FormAPI
       if @api_client.config.client_side_validation && template_id.nil?
         fail ArgumentError, "Missing the required parameter 'template_id' when calling PDFApi.batch_generate_pdf_v1"
       end
-      # verify the required parameter 'create_submission_data_batch_v1' is set
-      if @api_client.config.client_side_validation && create_submission_data_batch_v1.nil?
-        fail ArgumentError, "Missing the required parameter 'create_submission_data_batch_v1' when calling PDFApi.batch_generate_pdf_v1"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling PDFApi.batch_generate_pdf_v1"
       end
       # resource path
       local_var_path = '/templates/{template_id}/submissions/batch'.sub('{' + 'template_id' + '}', template_id.to_s)
@@ -63,7 +63,7 @@ module FormAPI
       form_params = {}
 
       # http body (model)
-      post_body = @api_client.object_to_http_body(create_submission_data_batch_v1)
+      post_body = @api_client.object_to_http_body(request_body)
       auth_names = ['api_token_basic']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
@@ -131,6 +131,59 @@ module FormAPI
       return data, status_code, headers
     end
 
+    # Merge submission PDFs, template PDFs, or custom files
+    # @param combine_pdfs_data 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateCombinedSubmissionResponse]
+    def combine_pdfs(combine_pdfs_data, opts = {})
+      data, _status_code, _headers = combine_pdfs_with_http_info(combine_pdfs_data, opts)
+      data
+    end
+
+    # Merge submission PDFs, template PDFs, or custom files
+    # @param combine_pdfs_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateCombinedSubmissionResponse, Fixnum, Hash)>] CreateCombinedSubmissionResponse data, response status code and response headers
+    def combine_pdfs_with_http_info(combine_pdfs_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.combine_pdfs ...'
+      end
+      # verify the required parameter 'combine_pdfs_data' is set
+      if @api_client.config.client_side_validation && combine_pdfs_data.nil?
+        fail ArgumentError, "Missing the required parameter 'combine_pdfs_data' when calling PDFApi.combine_pdfs"
+      end
+      # resource path
+      local_var_path = '/combined_submissions?v=2'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(combine_pdfs_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'CreateCombinedSubmissionResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#combine_pdfs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Merge generated PDFs together
     # @param combined_submission_data 
     # @param [Hash] opts the optional parameters
@@ -180,6 +233,59 @@ module FormAPI
         :return_type => 'CreateCombinedSubmissionResponse')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PDFApi#combine_submissions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a new custom file from a cached presign upload
+    # @param create_custom_file_data 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateCustomFileResponse]
+    def create_custom_file_from_upload(create_custom_file_data, opts = {})
+      data, _status_code, _headers = create_custom_file_from_upload_with_http_info(create_custom_file_data, opts)
+      data
+    end
+
+    # Create a new custom file from a cached presign upload
+    # @param create_custom_file_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateCustomFileResponse, Fixnum, Hash)>] CreateCustomFileResponse data, response status code and response headers
+    def create_custom_file_from_upload_with_http_info(create_custom_file_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.create_custom_file_from_upload ...'
+      end
+      # verify the required parameter 'create_custom_file_data' is set
+      if @api_client.config.client_side_validation && create_custom_file_data.nil?
+        fail ArgumentError, "Missing the required parameter 'create_custom_file_data' when calling PDFApi.create_custom_file_from_upload"
+      end
+      # resource path
+      local_var_path = '/custom_files'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(create_custom_file_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'CreateCustomFileResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#create_custom_file_from_upload\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -235,7 +341,7 @@ module FormAPI
       return data, status_code, headers
     end
 
-    # Upload a new PDF template
+    # Upload a new PDF template with a file upload
     # @param template_document 
     # @param template_name 
     # @param [Hash] opts the optional parameters
@@ -245,7 +351,7 @@ module FormAPI
       data
     end
 
-    # Upload a new PDF template
+    # Upload a new PDF template with a file upload
     # @param template_document 
     # @param template_name 
     # @param [Hash] opts the optional parameters
@@ -292,6 +398,59 @@ module FormAPI
         :return_type => 'PendingTemplate')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PDFApi#create_template\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a new PDF template from a cached presign upload
+    # @param create_template_data 
+    # @param [Hash] opts the optional parameters
+    # @return [PendingTemplate]
+    def create_template_from_upload(create_template_data, opts = {})
+      data, _status_code, _headers = create_template_from_upload_with_http_info(create_template_data, opts)
+      data
+    end
+
+    # Create a new PDF template from a cached presign upload
+    # @param create_template_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(PendingTemplate, Fixnum, Hash)>] PendingTemplate data, response status code and response headers
+    def create_template_from_upload_with_http_info(create_template_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.create_template_from_upload ...'
+      end
+      # verify the required parameter 'create_template_data' is set
+      if @api_client.config.client_side_validation && create_template_data.nil?
+        fail ArgumentError, "Missing the required parameter 'create_template_data' when calling PDFApi.create_template_from_upload"
+      end
+      # resource path
+      local_var_path = '/templates?v=2'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(create_template_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'PendingTemplate')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#create_template_from_upload\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -400,20 +559,20 @@ module FormAPI
 
     # Generates a new PDF
     # @param template_id 
-    # @param create_submission_data 
+    # @param submission_data 
     # @param [Hash] opts the optional parameters
     # @return [CreateSubmissionResponse]
-    def generate_pdf(template_id, create_submission_data, opts = {})
-      data, _status_code, _headers = generate_pdf_with_http_info(template_id, create_submission_data, opts)
+    def generate_pdf(template_id, submission_data, opts = {})
+      data, _status_code, _headers = generate_pdf_with_http_info(template_id, submission_data, opts)
       data
     end
 
     # Generates a new PDF
     # @param template_id 
-    # @param create_submission_data 
+    # @param submission_data 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSubmissionResponse, Fixnum, Hash)>] CreateSubmissionResponse data, response status code and response headers
-    def generate_pdf_with_http_info(template_id, create_submission_data, opts = {})
+    def generate_pdf_with_http_info(template_id, submission_data, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PDFApi.generate_pdf ...'
       end
@@ -421,9 +580,9 @@ module FormAPI
       if @api_client.config.client_side_validation && template_id.nil?
         fail ArgumentError, "Missing the required parameter 'template_id' when calling PDFApi.generate_pdf"
       end
-      # verify the required parameter 'create_submission_data' is set
-      if @api_client.config.client_side_validation && create_submission_data.nil?
-        fail ArgumentError, "Missing the required parameter 'create_submission_data' when calling PDFApi.generate_pdf"
+      # verify the required parameter 'submission_data' is set
+      if @api_client.config.client_side_validation && submission_data.nil?
+        fail ArgumentError, "Missing the required parameter 'submission_data' when calling PDFApi.generate_pdf"
       end
       # resource path
       local_var_path = '/templates/{template_id}/submissions'.sub('{' + 'template_id' + '}', template_id.to_s)
@@ -442,7 +601,7 @@ module FormAPI
       form_params = {}
 
       # http body (model)
-      post_body = @api_client.object_to_http_body(create_submission_data)
+      post_body = @api_client.object_to_http_body(submission_data)
       auth_names = ['api_token_basic']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
@@ -555,6 +714,51 @@ module FormAPI
         :return_type => 'SubmissionDataRequest')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PDFApi#get_data_request\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get a presigned URL so that you can upload a file to our AWS S3 bucket
+    # @param [Hash] opts the optional parameters
+    # @return [Hash<String, Object>]
+    def get_presign_url(opts = {})
+      data, _status_code, _headers = get_presign_url_with_http_info(opts)
+      data
+    end
+
+    # Get a presigned URL so that you can upload a file to our AWS S3 bucket
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Hash<String, Object>, Fixnum, Hash)>] Hash<String, Object> data, response status code and response headers
+    def get_presign_url_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.get_presign_url ...'
+      end
+      # resource path
+      local_var_path = '/uploads/presign'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Hash<String, Object>')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#get_presign_url\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

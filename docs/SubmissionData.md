@@ -1,4 +1,4 @@
-# FormAPI::CreateSubmissionDataBatchV1
+# FormAPI::SubmissionData
 
 ## Properties
 Name | Type | Description | Notes
@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **html** | **String** |  | [optional] 
 **css** | **String** |  | [optional] 
 **metadata** | **Object** |  | [optional] 
+**data_requests** | [**Array&lt;CreateSubmissionDataRequestData&gt;**](CreateSubmissionDataRequestData.md) |  | [optional] 
 
 

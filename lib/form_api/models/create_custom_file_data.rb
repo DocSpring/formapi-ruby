@@ -13,32 +13,20 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class SubmissionBatchData
-    attr_accessor :metadata
-
-    attr_accessor :test
-
-    attr_accessor :template_id
-
-    attr_accessor :submissions
+  class CreateCustomFileData
+    attr_accessor :cache_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'metadata' => :'metadata',
-        :'test' => :'test',
-        :'template_id' => :'template_id',
-        :'submissions' => :'submissions'
+        :'cache_id' => :'cache_id'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'metadata' => :'Object',
-        :'test' => :'BOOLEAN',
-        :'template_id' => :'String',
-        :'submissions' => :'Array<SubmissionDataBatchRequest>'
+        :'cache_id' => :'String'
       }
     end
 
@@ -50,22 +38,8 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'metadata')
-        self.metadata = attributes[:'metadata']
-      end
-
-      if attributes.has_key?(:'test')
-        self.test = attributes[:'test']
-      end
-
-      if attributes.has_key?(:'template_id')
-        self.template_id = attributes[:'template_id']
-      end
-
-      if attributes.has_key?(:'submissions')
-        if (value = attributes[:'submissions']).is_a?(Array)
-          self.submissions = value
-        end
+      if attributes.has_key?(:'cache_id')
+        self.cache_id = attributes[:'cache_id']
       end
     end
 
@@ -73,8 +47,8 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @submissions.nil?
-        invalid_properties.push('invalid value for "submissions", submissions cannot be nil.')
+      if @cache_id.nil?
+        invalid_properties.push('invalid value for "cache_id", cache_id cannot be nil.')
       end
 
       invalid_properties
@@ -83,7 +57,7 @@ module FormAPI
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @submissions.nil?
+      return false if @cache_id.nil?
       true
     end
 
@@ -92,10 +66,7 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          metadata == o.metadata &&
-          test == o.test &&
-          template_id == o.template_id &&
-          submissions == o.submissions
+          cache_id == o.cache_id
     end
 
     # @see the `==` method
@@ -107,7 +78,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [metadata, test, template_id, submissions].hash
+      [cache_id].hash
     end
 
     # Builds the object from hash

@@ -13,32 +13,40 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class SubmissionBatchData
-    attr_accessor :metadata
-
+  class SubmissionData
     attr_accessor :test
 
-    attr_accessor :template_id
+    attr_accessor :data
 
-    attr_accessor :submissions
+    attr_accessor :html
+
+    attr_accessor :css
+
+    attr_accessor :metadata
+
+    attr_accessor :data_requests
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'metadata' => :'metadata',
         :'test' => :'test',
-        :'template_id' => :'template_id',
-        :'submissions' => :'submissions'
+        :'data' => :'data',
+        :'html' => :'html',
+        :'css' => :'css',
+        :'metadata' => :'metadata',
+        :'data_requests' => :'data_requests'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'metadata' => :'Object',
         :'test' => :'BOOLEAN',
-        :'template_id' => :'String',
-        :'submissions' => :'Array<SubmissionDataBatchRequest>'
+        :'data' => :'Object',
+        :'html' => :'String',
+        :'css' => :'String',
+        :'metadata' => :'Object',
+        :'data_requests' => :'Array<CreateSubmissionDataRequestData>'
       }
     end
 
@@ -50,21 +58,29 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'metadata')
-        self.metadata = attributes[:'metadata']
-      end
-
       if attributes.has_key?(:'test')
         self.test = attributes[:'test']
       end
 
-      if attributes.has_key?(:'template_id')
-        self.template_id = attributes[:'template_id']
+      if attributes.has_key?(:'data')
+        self.data = attributes[:'data']
       end
 
-      if attributes.has_key?(:'submissions')
-        if (value = attributes[:'submissions']).is_a?(Array)
-          self.submissions = value
+      if attributes.has_key?(:'html')
+        self.html = attributes[:'html']
+      end
+
+      if attributes.has_key?(:'css')
+        self.css = attributes[:'css']
+      end
+
+      if attributes.has_key?(:'metadata')
+        self.metadata = attributes[:'metadata']
+      end
+
+      if attributes.has_key?(:'data_requests')
+        if (value = attributes[:'data_requests']).is_a?(Array)
+          self.data_requests = value
         end
       end
     end
@@ -73,8 +89,8 @@ module FormAPI
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @submissions.nil?
-        invalid_properties.push('invalid value for "submissions", submissions cannot be nil.')
+      if @data.nil?
+        invalid_properties.push('invalid value for "data", data cannot be nil.')
       end
 
       invalid_properties
@@ -83,7 +99,7 @@ module FormAPI
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @submissions.nil?
+      return false if @data.nil?
       true
     end
 
@@ -92,10 +108,12 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          metadata == o.metadata &&
           test == o.test &&
-          template_id == o.template_id &&
-          submissions == o.submissions
+          data == o.data &&
+          html == o.html &&
+          css == o.css &&
+          metadata == o.metadata &&
+          data_requests == o.data_requests
     end
 
     # @see the `==` method
@@ -107,7 +125,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [metadata, test, template_id, submissions].hash
+      [test, data, html, css, metadata, data_requests].hash
     end
 
     # Builds the object from hash

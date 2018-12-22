@@ -6,14 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**batch_generate_pdf_v1**](PDFApi.md#batch_generate_pdf_v1) | **POST** /templates/{template_id}/submissions/batch | Generates multiple PDFs
 [**batch_generate_pdfs**](PDFApi.md#batch_generate_pdfs) | **POST** /submissions/batches | Generates multiple PDFs
+[**combine_pdfs**](PDFApi.md#combine_pdfs) | **POST** /combined_submissions?v&#x3D;2 | Merge submission PDFs, template PDFs, or custom files
 [**combine_submissions**](PDFApi.md#combine_submissions) | **POST** /combined_submissions | Merge generated PDFs together
+[**create_custom_file_from_upload**](PDFApi.md#create_custom_file_from_upload) | **POST** /custom_files | Create a new custom file from a cached presign upload
 [**create_data_request_token**](PDFApi.md#create_data_request_token) | **POST** /data_requests/{data_request_id}/tokens | Creates a new data request token for form authentication
-[**create_template**](PDFApi.md#create_template) | **POST** /templates | Upload a new PDF template
+[**create_template**](PDFApi.md#create_template) | **POST** /templates | Upload a new PDF template with a file upload
+[**create_template_from_upload**](PDFApi.md#create_template_from_upload) | **POST** /templates?v&#x3D;2 | Create a new PDF template from a cached presign upload
 [**expire_combined_submission**](PDFApi.md#expire_combined_submission) | **DELETE** /combined_submissions/{combined_submission_id} | Expire a combined submission
 [**expire_submission**](PDFApi.md#expire_submission) | **DELETE** /submissions/{submission_id} | Expire a PDF submission
 [**generate_pdf**](PDFApi.md#generate_pdf) | **POST** /templates/{template_id}/submissions | Generates a new PDF
 [**get_combined_submission**](PDFApi.md#get_combined_submission) | **GET** /combined_submissions/{combined_submission_id} | Check the status of a combined submission (merged PDFs)
 [**get_data_request**](PDFApi.md#get_data_request) | **GET** /data_requests/{data_request_id} | Look up a submission data request
+[**get_presign_url**](PDFApi.md#get_presign_url) | **GET** /uploads/presign | Get a presigned URL so that you can upload a file to our AWS S3 bucket
 [**get_submission**](PDFApi.md#get_submission) | **GET** /submissions/{submission_id} | Check the status of a PDF
 [**get_submission_batch**](PDFApi.md#get_submission_batch) | **GET** /submissions/batches/{submission_batch_id} | Check the status of a submission batch job
 [**get_template**](PDFApi.md#get_template) | **GET** /templates/{template_id} | Check the status of an uploaded template
@@ -24,7 +28,7 @@ Method | HTTP request | Description
 
 
 # **batch_generate_pdf_v1**
-> Array&lt;CreateSubmissionResponse&gt; batch_generate_pdf_v1(template_id, create_submission_data_batch_v1)
+> Array&lt;CreateSubmissionResponse&gt; batch_generate_pdf_v1(template_id, request_body)
 
 Generates multiple PDFs
 
@@ -41,11 +45,11 @@ end
 
 api_instance = FormAPI::PDFApi.new
 template_id = 'tpl_000000000000000001' # String | 
-create_submission_data_batch_v1 = nil # Array<CreateSubmissionDataBatchV1> | 
+request_body = nil # Array<Object> | 
 
 begin
   #Generates multiple PDFs
-  result = api_instance.batch_generate_pdf_v1(template_id, create_submission_data_batch_v1)
+  result = api_instance.batch_generate_pdf_v1(template_id, request_body)
   p result
 rescue FormAPI::ApiError => e
   puts "Exception when calling PDFApi->batch_generate_pdf_v1: #{e}"
@@ -57,7 +61,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **template_id** | **String**|  | 
- **create_submission_data_batch_v1** | [**Array&lt;CreateSubmissionDataBatchV1&gt;**](Array.md)|  | 
+ **request_body** | [**Array&lt;Object&gt;**](Array.md)|  | 
 
 ### Return type
 
@@ -123,6 +127,55 @@ Name | Type | Description  | Notes
 
 
 
+# **combine_pdfs**
+> CreateCombinedSubmissionResponse combine_pdfs(combine_pdfs_data)
+
+Merge submission PDFs, template PDFs, or custom files
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+combine_pdfs_data = FormAPI::CombinePdfsData.new # CombinePdfsData | 
+
+begin
+  #Merge submission PDFs, template PDFs, or custom files
+  result = api_instance.combine_pdfs(combine_pdfs_data)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->combine_pdfs: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **combine_pdfs_data** | [**CombinePdfsData**](CombinePdfsData.md)|  | 
+
+### Return type
+
+[**CreateCombinedSubmissionResponse**](CreateCombinedSubmissionResponse.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
 # **combine_submissions**
 > CreateCombinedSubmissionResponse combine_submissions(combined_submission_data)
 
@@ -160,6 +213,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CreateCombinedSubmissionResponse**](CreateCombinedSubmissionResponse.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **create_custom_file_from_upload**
+> CreateCustomFileResponse create_custom_file_from_upload(create_custom_file_data)
+
+Create a new custom file from a cached presign upload
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+create_custom_file_data = FormAPI::CreateCustomFileData.new # CreateCustomFileData | 
+
+begin
+  #Create a new custom file from a cached presign upload
+  result = api_instance.create_custom_file_from_upload(create_custom_file_data)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->create_custom_file_from_upload: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_custom_file_data** | [**CreateCustomFileData**](CreateCustomFileData.md)|  | 
+
+### Return type
+
+[**CreateCustomFileResponse**](CreateCustomFileResponse.md)
 
 ### Authorization
 
@@ -224,7 +326,7 @@ Name | Type | Description  | Notes
 # **create_template**
 > PendingTemplate create_template(template_document, template_name)
 
-Upload a new PDF template
+Upload a new PDF template with a file upload
 
 ### Example
 ```ruby
@@ -242,7 +344,7 @@ template_document = File.new('/path/to/file') # File |
 template_name = 'template_name_example' # String | 
 
 begin
-  #Upload a new PDF template
+  #Upload a new PDF template with a file upload
   result = api_instance.create_template(template_document, template_name)
   p result
 rescue FormAPI::ApiError => e
@@ -268,6 +370,55 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+
+
+# **create_template_from_upload**
+> PendingTemplate create_template_from_upload(create_template_data)
+
+Create a new PDF template from a cached presign upload
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+create_template_data = FormAPI::CreateTemplateData.new # CreateTemplateData | 
+
+begin
+  #Create a new PDF template from a cached presign upload
+  result = api_instance.create_template_from_upload(create_template_data)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->create_template_from_upload: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_template_data** | [**CreateTemplateData**](CreateTemplateData.md)|  | 
+
+### Return type
+
+[**PendingTemplate**](PendingTemplate.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -371,7 +522,7 @@ Name | Type | Description  | Notes
 
 
 # **generate_pdf**
-> CreateSubmissionResponse generate_pdf(template_id, create_submission_data)
+> CreateSubmissionResponse generate_pdf(template_id, submission_data)
 
 Generates a new PDF
 
@@ -388,11 +539,11 @@ end
 
 api_instance = FormAPI::PDFApi.new
 template_id = 'tpl_000000000000000001' # String | 
-create_submission_data = FormAPI::CreateSubmissionData.new # CreateSubmissionData | 
+submission_data = FormAPI::SubmissionData.new # SubmissionData | 
 
 begin
   #Generates a new PDF
-  result = api_instance.generate_pdf(template_id, create_submission_data)
+  result = api_instance.generate_pdf(template_id, submission_data)
   p result
 rescue FormAPI::ApiError => e
   puts "Exception when calling PDFApi->generate_pdf: #{e}"
@@ -404,7 +555,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **template_id** | **String**|  | 
- **create_submission_data** | [**CreateSubmissionData**](CreateSubmissionData.md)|  | 
+ **submission_data** | [**SubmissionData**](SubmissionData.md)|  | 
 
 ### Return type
 
@@ -519,6 +670,51 @@ Name | Type | Description  | Notes
 
 
 
+# **get_presign_url**
+> Hash&lt;String, Object&gt; get_presign_url
+
+Get a presigned URL so that you can upload a file to our AWS S3 bucket
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+
+begin
+  #Get a presigned URL so that you can upload a file to our AWS S3 bucket
+  result = api_instance.get_presign_url
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->get_presign_url: #{e}"
+end
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**Hash&lt;String, Object&gt;**
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
 # **get_submission**
 > Submission get_submission(submission_id)
 
@@ -585,7 +781,7 @@ FormAPI.configure do |config|
 end
 
 api_instance = FormAPI::PDFApi.new
-submission_batch_id = 'sba_000000000000000001' # String | 
+submission_batch_id = 'sbb_000000000000000001' # String | 
 opts = {
   include_submissions: true # BOOLEAN | 
 }

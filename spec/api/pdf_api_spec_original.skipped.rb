@@ -21,7 +21,7 @@ describe 'PDFApi' do
     FormAPI.configure do |c|
       c.username  = 'api_token123'
       c.password  = 'testsecret123'
-      c.host = 'localhost:31337'
+      c.host = 'api.formapi.local:31337'
       c.scheme = 'http'
     end
   end
@@ -41,14 +41,14 @@ describe 'PDFApi' do
   # integration tests for batch_generate_pdf_v1
   # Generates multiple PDFs
   # @param template_id 
-  # @param create_submission_data_batch_v1 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Array<CreateSubmissionResponse>]
   describe 'batch_generate_pdf_v1 test' do
     it 'should work' do
       template_id = 'tpl_000000000000000001' # String | 
-      create_submission_data_batch_v1 = nil # Array<CreateSubmissionDataBatchV1> | 
-      result = api_instance.batch_generate_pdf_v1(template_id, create_submission_data_batch_v1)
+      request_body = nil # Array<Object> | 
+      result = api_instance.batch_generate_pdf_v1(template_id, request_body)
       expect(result).to_not be_nil
     end
   end
@@ -64,6 +64,18 @@ describe 'PDFApi' do
       expect(result).to_not be_nil
     end
   end
+  # integration tests for combine_pdfs
+  # Merge submission PDFs, template PDFs, or custom files
+  # @param combine_pdfs_data 
+  # @param [Hash] opts the optional parameters
+  # @return [CreateCombinedSubmissionResponse]
+  describe 'combine_pdfs test' do
+    it 'should work' do
+      combine_pdfs_data = FormAPI::CombinePdfsData.new # CombinePdfsData | 
+      result = api_instance.combine_pdfs(combine_pdfs_data)
+      expect(result).to_not be_nil
+    end
+  end
   # integration tests for combine_submissions
   # Merge generated PDFs together
   # @param combined_submission_data 
@@ -73,6 +85,18 @@ describe 'PDFApi' do
     it 'should work' do
       combined_submission_data = FormAPI::CombinedSubmissionData.new # CombinedSubmissionData | 
       result = api_instance.combine_submissions(combined_submission_data)
+      expect(result).to_not be_nil
+    end
+  end
+  # integration tests for create_custom_file_from_upload
+  # Create a new custom file from a cached presign upload
+  # @param create_custom_file_data 
+  # @param [Hash] opts the optional parameters
+  # @return [CreateCustomFileResponse]
+  describe 'create_custom_file_from_upload test' do
+    it 'should work' do
+      create_custom_file_data = FormAPI::CreateCustomFileData.new # CreateCustomFileData | 
+      result = api_instance.create_custom_file_from_upload(create_custom_file_data)
       expect(result).to_not be_nil
     end
   end
@@ -89,7 +113,7 @@ describe 'PDFApi' do
     end
   end
   # integration tests for create_template
-  # Upload a new PDF template
+  # Upload a new PDF template with a file upload
   # @param template_document 
   # @param template_name 
   # @param [Hash] opts the optional parameters
@@ -99,6 +123,18 @@ describe 'PDFApi' do
       template_document = File.new('/path/to/file') # File | 
       template_name = 'template_name_example' # String | 
       result = api_instance.create_template(template_document, template_name)
+      expect(result).to_not be_nil
+    end
+  end
+  # integration tests for create_template_from_upload
+  # Create a new PDF template from a cached presign upload
+  # @param create_template_data 
+  # @param [Hash] opts the optional parameters
+  # @return [PendingTemplate]
+  describe 'create_template_from_upload test' do
+    it 'should work' do
+      create_template_data = FormAPI::CreateTemplateData.new # CreateTemplateData | 
+      result = api_instance.create_template_from_upload(create_template_data)
       expect(result).to_not be_nil
     end
   end
@@ -129,14 +165,14 @@ describe 'PDFApi' do
   # integration tests for generate_pdf
   # Generates a new PDF
   # @param template_id 
-  # @param create_submission_data 
+  # @param submission_data 
   # @param [Hash] opts the optional parameters
   # @return [CreateSubmissionResponse]
   describe 'generate_pdf test' do
     it 'should work' do
       template_id = 'tpl_000000000000000001' # String | 
-      create_submission_data = FormAPI::CreateSubmissionData.new # CreateSubmissionData | 
-      result = api_instance.generate_pdf(template_id, create_submission_data)
+      submission_data = FormAPI::SubmissionData.new # SubmissionData | 
+      result = api_instance.generate_pdf(template_id, submission_data)
       expect(result).to_not be_nil
     end
   end
@@ -164,6 +200,16 @@ describe 'PDFApi' do
       expect(result).to_not be_nil
     end
   end
+  # integration tests for get_presign_url
+  # Get a presigned URL so that you can upload a file to our AWS S3 bucket
+  # @param [Hash] opts the optional parameters
+  # @return [Hash<String, Object>]
+  describe 'get_presign_url test' do
+    it 'should work' do
+      result = api_instance.get_presign_url
+      expect(result).to_not be_nil
+    end
+  end
   # integration tests for get_submission
   # Check the status of a PDF
   # @param submission_id 
@@ -184,7 +230,7 @@ describe 'PDFApi' do
   # @return [SubmissionBatch]
   describe 'get_submission_batch test' do
     it 'should work' do
-      submission_batch_id = 'sba_000000000000000001' # String | 
+      submission_batch_id = 'sbb_000000000000000001' # String | 
       opts = {
         include_submissions: true # BOOLEAN | 
       }
