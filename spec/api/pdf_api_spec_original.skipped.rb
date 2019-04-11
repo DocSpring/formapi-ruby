@@ -214,11 +214,15 @@ describe 'PDFApi' do
   # Check the status of a PDF
   # @param submission_id 
   # @param [Hash] opts the optional parameters
+  # @option opts [BOOLEAN] :include_data 
   # @return [Submission]
   describe 'get_submission test' do
     it 'should work' do
       submission_id = 'sub_000000000000000001' # String | 
-      result = api_instance.get_submission(submission_id)
+      opts = {
+        include_data: false # BOOLEAN | 
+      }
+      result = api_instance.get_submission(submission_id, opts)
       expect(result).to_not be_nil
     end
   end

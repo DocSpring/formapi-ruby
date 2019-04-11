@@ -18,6 +18,8 @@ module FormAPI
 
     attr_accessor :test
 
+    attr_accessor :editable
+
     attr_accessor :expired
 
     attr_accessor :expires_at
@@ -63,6 +65,7 @@ module FormAPI
       {
         :'id' => :'id',
         :'test' => :'test',
+        :'editable' => :'editable',
         :'expired' => :'expired',
         :'expires_at' => :'expires_at',
         :'processed_at' => :'processed_at',
@@ -80,6 +83,7 @@ module FormAPI
       {
         :'id' => :'String',
         :'test' => :'BOOLEAN',
+        :'editable' => :'BOOLEAN',
         :'expired' => :'BOOLEAN',
         :'expires_at' => :'String',
         :'processed_at' => :'String',
@@ -106,6 +110,10 @@ module FormAPI
 
       if attributes.has_key?(:'test')
         self.test = attributes[:'test']
+      end
+
+      if attributes.has_key?(:'editable')
+        self.editable = attributes[:'editable']
       end
 
       if attributes.has_key?(:'expired')
@@ -179,7 +187,7 @@ module FormAPI
       return false if @test.nil?
       return false if @expired.nil?
       return false if @state.nil?
-      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests'])
+      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests', 'liquid_syntax_error'])
       return false unless state_validator.valid?(@state)
       true
     end
@@ -187,7 +195,7 @@ module FormAPI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests'])
+      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests', 'liquid_syntax_error'])
       unless validator.valid?(state)
         fail ArgumentError, 'invalid value for "state", must be one of #{validator.allowable_values}.'
       end
@@ -201,6 +209,7 @@ module FormAPI
       self.class == o.class &&
           id == o.id &&
           test == o.test &&
+          editable == o.editable &&
           expired == o.expired &&
           expires_at == o.expires_at &&
           processed_at == o.processed_at &&
@@ -221,7 +230,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, test, expired, expires_at, processed_at, state, metadata, download_url, batch_id, data_requests, actions].hash
+      [id, test, editable, expired, expires_at, processed_at, state, metadata, download_url, batch_id, data_requests, actions].hash
     end
 
     # Builds the object from hash

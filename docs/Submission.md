@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **test** | **BOOLEAN** |  | 
+**editable** | **BOOLEAN** |  | [optional] 
 **expired** | **BOOLEAN** |  | 
 **expires_at** | **String** |  | [optional] 
 **processed_at** | **String** |  | [optional] 

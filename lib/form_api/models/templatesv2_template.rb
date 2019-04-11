@@ -16,11 +16,7 @@ module FormAPI
   class Templatesv2Template
     attr_accessor :expiration_interval
 
-    attr_accessor :public_web_form
-
     attr_accessor :webhook_url
-
-    attr_accessor :expire_submissions
 
     attr_accessor :expire_after
 
@@ -28,15 +24,21 @@ module FormAPI
 
     attr_accessor :document
 
-    attr_accessor :name
-
     attr_accessor :public_submissions
 
     attr_accessor :slack_webhook_url
 
-    attr_accessor :redirect_url
-
     attr_accessor :blockchain_timestamp_verification
+
+    attr_accessor :public_web_form
+
+    attr_accessor :editable_submissions
+
+    attr_accessor :expire_submissions
+
+    attr_accessor :name
+
+    attr_accessor :redirect_url
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -64,17 +66,18 @@ module FormAPI
     def self.attribute_map
       {
         :'expiration_interval' => :'expiration_interval',
-        :'public_web_form' => :'public_web_form',
         :'webhook_url' => :'webhook_url',
-        :'expire_submissions' => :'expire_submissions',
         :'expire_after' => :'expire_after',
         :'allow_additional_properties' => :'allow_additional_properties',
         :'document' => :'document',
-        :'name' => :'name',
         :'public_submissions' => :'public_submissions',
         :'slack_webhook_url' => :'slack_webhook_url',
-        :'redirect_url' => :'redirect_url',
-        :'blockchain_timestamp_verification' => :'blockchain_timestamp_verification'
+        :'blockchain_timestamp_verification' => :'blockchain_timestamp_verification',
+        :'public_web_form' => :'public_web_form',
+        :'editable_submissions' => :'editable_submissions',
+        :'expire_submissions' => :'expire_submissions',
+        :'name' => :'name',
+        :'redirect_url' => :'redirect_url'
       }
     end
 
@@ -82,17 +85,18 @@ module FormAPI
     def self.openapi_types
       {
         :'expiration_interval' => :'String',
-        :'public_web_form' => :'BOOLEAN',
         :'webhook_url' => :'String',
-        :'expire_submissions' => :'BOOLEAN',
         :'expire_after' => :'Float',
         :'allow_additional_properties' => :'BOOLEAN',
         :'document' => :'Templatesv2TemplateDocument',
-        :'name' => :'String',
         :'public_submissions' => :'BOOLEAN',
         :'slack_webhook_url' => :'String',
-        :'redirect_url' => :'String',
-        :'blockchain_timestamp_verification' => :'BOOLEAN'
+        :'blockchain_timestamp_verification' => :'BOOLEAN',
+        :'public_web_form' => :'BOOLEAN',
+        :'editable_submissions' => :'BOOLEAN',
+        :'expire_submissions' => :'BOOLEAN',
+        :'name' => :'String',
+        :'redirect_url' => :'String'
       }
     end
 
@@ -108,16 +112,8 @@ module FormAPI
         self.expiration_interval = attributes[:'expiration_interval']
       end
 
-      if attributes.has_key?(:'public_web_form')
-        self.public_web_form = attributes[:'public_web_form']
-      end
-
       if attributes.has_key?(:'webhook_url')
         self.webhook_url = attributes[:'webhook_url']
-      end
-
-      if attributes.has_key?(:'expire_submissions')
-        self.expire_submissions = attributes[:'expire_submissions']
       end
 
       if attributes.has_key?(:'expire_after')
@@ -132,10 +128,6 @@ module FormAPI
         self.document = attributes[:'document']
       end
 
-      if attributes.has_key?(:'name')
-        self.name = attributes[:'name']
-      end
-
       if attributes.has_key?(:'public_submissions')
         self.public_submissions = attributes[:'public_submissions']
       end
@@ -144,12 +136,28 @@ module FormAPI
         self.slack_webhook_url = attributes[:'slack_webhook_url']
       end
 
-      if attributes.has_key?(:'redirect_url')
-        self.redirect_url = attributes[:'redirect_url']
-      end
-
       if attributes.has_key?(:'blockchain_timestamp_verification')
         self.blockchain_timestamp_verification = attributes[:'blockchain_timestamp_verification']
+      end
+
+      if attributes.has_key?(:'public_web_form')
+        self.public_web_form = attributes[:'public_web_form']
+      end
+
+      if attributes.has_key?(:'editable_submissions')
+        self.editable_submissions = attributes[:'editable_submissions']
+      end
+
+      if attributes.has_key?(:'expire_submissions')
+        self.expire_submissions = attributes[:'expire_submissions']
+      end
+
+      if attributes.has_key?(:'name')
+        self.name = attributes[:'name']
+      end
+
+      if attributes.has_key?(:'redirect_url')
+        self.redirect_url = attributes[:'redirect_url']
       end
     end
 
@@ -184,17 +192,18 @@ module FormAPI
       return true if self.equal?(o)
       self.class == o.class &&
           expiration_interval == o.expiration_interval &&
-          public_web_form == o.public_web_form &&
           webhook_url == o.webhook_url &&
-          expire_submissions == o.expire_submissions &&
           expire_after == o.expire_after &&
           allow_additional_properties == o.allow_additional_properties &&
           document == o.document &&
-          name == o.name &&
           public_submissions == o.public_submissions &&
           slack_webhook_url == o.slack_webhook_url &&
-          redirect_url == o.redirect_url &&
-          blockchain_timestamp_verification == o.blockchain_timestamp_verification
+          blockchain_timestamp_verification == o.blockchain_timestamp_verification &&
+          public_web_form == o.public_web_form &&
+          editable_submissions == o.editable_submissions &&
+          expire_submissions == o.expire_submissions &&
+          name == o.name &&
+          redirect_url == o.redirect_url
     end
 
     # @see the `==` method
@@ -206,7 +215,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [expiration_interval, public_web_form, webhook_url, expire_submissions, expire_after, allow_additional_properties, document, name, public_submissions, slack_webhook_url, redirect_url, blockchain_timestamp_verification].hash
+      [expiration_interval, webhook_url, expire_after, allow_additional_properties, document, public_submissions, slack_webhook_url, blockchain_timestamp_verification, public_web_form, editable_submissions, expire_submissions, name, redirect_url].hash
     end
 
     # Builds the object from hash

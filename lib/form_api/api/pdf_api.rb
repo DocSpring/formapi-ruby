@@ -766,6 +766,7 @@ module FormAPI
     # Check the status of a PDF
     # @param submission_id 
     # @param [Hash] opts the optional parameters
+    # @option opts [BOOLEAN] :include_data 
     # @return [Submission]
     def get_submission(submission_id, opts = {})
       data, _status_code, _headers = get_submission_with_http_info(submission_id, opts)
@@ -775,6 +776,7 @@ module FormAPI
     # Check the status of a PDF
     # @param submission_id 
     # @param [Hash] opts the optional parameters
+    # @option opts [BOOLEAN] :include_data 
     # @return [Array<(Submission, Fixnum, Hash)>] Submission data, response status code and response headers
     def get_submission_with_http_info(submission_id, opts = {})
       if @api_client.config.debugging
@@ -789,6 +791,7 @@ module FormAPI
 
       # query parameters
       query_params = {}
+      query_params[:'include_data'] = opts[:'include_data'] if !opts[:'include_data'].nil?
 
       # header parameters
       header_params = {}

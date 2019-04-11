@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **slack_webhook_url** | **String** |  | [optional] 
 **blockchain_timestamp_verification** | **BOOLEAN** |  | [optional] 
 **public_web_form** | **BOOLEAN** |  | [optional] 
+**editable_submissions** | **BOOLEAN** |  | [optional] 
 **expire_submissions** | **BOOLEAN** |  | [optional] 
 **name** | **String** |  | [optional] 
 **template_type** | **String** |  | [optional] 

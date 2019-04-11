@@ -716,7 +716,7 @@ This endpoint does not need any parameter.
 
 
 # **get_submission**
-> Submission get_submission(submission_id)
+> Submission get_submission(submission_id, opts)
 
 Check the status of a PDF
 
@@ -733,10 +733,13 @@ end
 
 api_instance = FormAPI::PDFApi.new
 submission_id = 'sub_000000000000000001' # String | 
+opts = {
+  include_data: false # BOOLEAN | 
+}
 
 begin
   #Check the status of a PDF
-  result = api_instance.get_submission(submission_id)
+  result = api_instance.get_submission(submission_id, opts)
   p result
 rescue FormAPI::ApiError => e
   puts "Exception when calling PDFApi->get_submission: #{e}"
@@ -748,6 +751,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **submission_id** | **String**|  | 
+ **include_data** | **BOOLEAN**|  | [optional] 
 
 ### Return type
 

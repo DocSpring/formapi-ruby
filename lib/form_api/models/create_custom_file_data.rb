@@ -51,6 +51,10 @@ module FormAPI
         invalid_properties.push('invalid value for "cache_id", cache_id cannot be nil.')
       end
 
+      if @cache_id.to_s.length < 1
+        invalid_properties.push('invalid value for "cache_id", the character length must be great than or equal to 1.')
+      end
+
       invalid_properties
     end
 
@@ -58,7 +62,22 @@ module FormAPI
     # @return true if the model is valid
     def valid?
       return false if @cache_id.nil?
+      return false if @cache_id.to_s.length < 1
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] cache_id Value to be assigned
+    def cache_id=(cache_id)
+      if cache_id.nil?
+        fail ArgumentError, 'cache_id cannot be nil'
+      end
+
+      if cache_id.to_s.length < 1
+        fail ArgumentError, 'invalid value for "cache_id", the character length must be great than or equal to 1.'
+      end
+
+      @cache_id = cache_id
     end
 
     # Checks equality by comparing each attribute.
