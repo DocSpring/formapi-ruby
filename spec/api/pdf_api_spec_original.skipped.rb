@@ -266,19 +266,21 @@ describe 'PDFApi' do
       expect(result).to_not be_nil
     end
   end
-  # integration tests for get_templates
+  # integration tests for list_templates
   # Get a list of all templates
   # @param [Hash] opts the optional parameters
+  # @option opts [String] :query Search By Name
   # @option opts [Integer] :page Default: 1
   # @option opts [Integer] :per_page Default: 50
   # @return [Array<Template>]
-  describe 'get_templates test' do
+  describe 'list_templates test' do
     it 'should work' do
       opts = {
+        query: '2', # String | Search By Name
         page: 2, # Integer | Default: 1
         per_page: 1 # Integer | Default: 50
       }
-      result = api_instance.get_templates(opts)
+      result = api_instance.list_templates(opts)
       expect(result).to_not be_nil
     end
   end

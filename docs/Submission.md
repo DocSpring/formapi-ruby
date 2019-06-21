@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
+**template_id** | **String** |  | [optional] 
 **test** | **BOOLEAN** |  | 
 **editable** | **BOOLEAN** |  | [optional] 
 **expired** | **BOOLEAN** |  | 

@@ -26,8 +26,6 @@ module FormAPI
 
     attr_accessor :slack_webhook_url
 
-    attr_accessor :blockchain_timestamp_verification
-
     attr_accessor :public_web_form
 
     attr_accessor :editable_submissions
@@ -75,7 +73,6 @@ module FormAPI
         :'allow_additional_properties' => :'allow_additional_properties',
         :'public_submissions' => :'public_submissions',
         :'slack_webhook_url' => :'slack_webhook_url',
-        :'blockchain_timestamp_verification' => :'blockchain_timestamp_verification',
         :'public_web_form' => :'public_web_form',
         :'editable_submissions' => :'editable_submissions',
         :'expire_submissions' => :'expire_submissions',
@@ -96,7 +93,6 @@ module FormAPI
         :'allow_additional_properties' => :'BOOLEAN',
         :'public_submissions' => :'BOOLEAN',
         :'slack_webhook_url' => :'String',
-        :'blockchain_timestamp_verification' => :'BOOLEAN',
         :'public_web_form' => :'BOOLEAN',
         :'editable_submissions' => :'BOOLEAN',
         :'expire_submissions' => :'BOOLEAN',
@@ -138,10 +134,6 @@ module FormAPI
 
       if attributes.has_key?(:'slack_webhook_url')
         self.slack_webhook_url = attributes[:'slack_webhook_url']
-      end
-
-      if attributes.has_key?(:'blockchain_timestamp_verification')
-        self.blockchain_timestamp_verification = attributes[:'blockchain_timestamp_verification']
       end
 
       if attributes.has_key?(:'public_web_form')
@@ -215,7 +207,6 @@ module FormAPI
           allow_additional_properties == o.allow_additional_properties &&
           public_submissions == o.public_submissions &&
           slack_webhook_url == o.slack_webhook_url &&
-          blockchain_timestamp_verification == o.blockchain_timestamp_verification &&
           public_web_form == o.public_web_form &&
           editable_submissions == o.editable_submissions &&
           expire_submissions == o.expire_submissions &&
@@ -235,7 +226,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [expiration_interval, webhook_url, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, blockchain_timestamp_verification, public_web_form, editable_submissions, expire_submissions, name, template_type, id, page_dimensions, redirect_url].hash
+      [expiration_interval, webhook_url, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, public_web_form, editable_submissions, expire_submissions, name, template_type, id, page_dimensions, redirect_url].hash
     end
 
     # Builds the object from hash

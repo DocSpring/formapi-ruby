@@ -72,12 +72,6 @@ describe 'PendingTemplate' do
     end
   end
 
-  describe 'test attribute "blockchain_timestamp_verification"' do
-    it 'should work' do
-      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
-    end
-  end
-
   describe 'test attribute "public_web_form"' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers

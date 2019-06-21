@@ -975,33 +975,35 @@ module FormAPI
 
     # Get a list of all templates
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :query Search By Name
     # @option opts [Integer] :page Default: 1
     # @option opts [Integer] :per_page Default: 50
     # @return [Array<Template>]
-    def get_templates(opts = {})
-      data, _status_code, _headers = get_templates_with_http_info(opts)
+    def list_templates(opts = {})
+      data, _status_code, _headers = list_templates_with_http_info(opts)
       data
     end
 
     # Get a list of all templates
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :query Search By Name
     # @option opts [Integer] :page Default: 1
     # @option opts [Integer] :per_page Default: 50
     # @return [Array<(Array<Template>, Fixnum, Hash)>] Array<Template> data, response status code and response headers
-    def get_templates_with_http_info(opts = {})
+    def list_templates_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: PDFApi.get_templates ...'
+        @api_client.config.logger.debug 'Calling API: PDFApi.list_templates ...'
       end
       if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
-        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling PDFApi.get_templates, must be greater than or equal to 1.'
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling PDFApi.list_templates, must be greater than or equal to 1.'
       end
 
       if @api_client.config.client_side_validation && !opts[:'per_page'].nil? && opts[:'per_page'] > 50
-        fail ArgumentError, 'invalid value for "opts[:"per_page"]" when calling PDFApi.get_templates, must be smaller than or equal to 50.'
+        fail ArgumentError, 'invalid value for "opts[:"per_page"]" when calling PDFApi.list_templates, must be smaller than or equal to 50.'
       end
 
       if @api_client.config.client_side_validation && !opts[:'per_page'].nil? && opts[:'per_page'] < 1
-        fail ArgumentError, 'invalid value for "opts[:"per_page"]" when calling PDFApi.get_templates, must be greater than or equal to 1.'
+        fail ArgumentError, 'invalid value for "opts[:"per_page"]" when calling PDFApi.list_templates, must be greater than or equal to 1.'
       end
 
       # resource path
@@ -1009,6 +1011,7 @@ module FormAPI
 
       # query parameters
       query_params = {}
+      query_params[:'query'] = opts[:'query'] if !opts[:'query'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'per_page'] = opts[:'per_page'] if !opts[:'per_page'].nil?
 
@@ -1031,7 +1034,7 @@ module FormAPI
         :auth_names => auth_names,
         :return_type => 'Array<Template>')
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: PDFApi#get_templates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: PDFApi#list_templates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

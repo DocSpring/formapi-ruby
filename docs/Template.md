@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **allow_additional_properties** | **BOOLEAN** |  | [optional] 
 **public_submissions** | **BOOLEAN** |  | [optional] 
 **slack_webhook_url** | **String** |  | [optional] 
-**blockchain_timestamp_verification** | **BOOLEAN** |  | [optional] 
 **public_web_form** | **BOOLEAN** |  | [optional] 
 **editable_submissions** | **BOOLEAN** |  | [optional] 
 **expire_submissions** | **BOOLEAN** |  | [optional] 

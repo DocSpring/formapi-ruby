@@ -22,7 +22,7 @@ Method | HTTP request | Description
 [**get_submission_batch**](PDFApi.md#get_submission_batch) | **GET** /submissions/batches/{submission_batch_id} | Check the status of a submission batch job
 [**get_template**](PDFApi.md#get_template) | **GET** /templates/{template_id} | Check the status of an uploaded template
 [**get_template_schema**](PDFApi.md#get_template_schema) | **GET** /templates/{template_id}/schema | Fetch the JSON schema for a template
-[**get_templates**](PDFApi.md#get_templates) | **GET** /templates | Get a list of all templates
+[**list_templates**](PDFApi.md#list_templates) | **GET** /templates | Get a list of all templates
 [**test_authentication**](PDFApi.md#test_authentication) | **GET** /authentication | Test Authentication
 [**update_data_request**](PDFApi.md#update_data_request) | **PUT** /data_requests/{data_request_id} | Update a submission data request
 
@@ -919,8 +919,8 @@ Name | Type | Description  | Notes
 
 
 
-# **get_templates**
-> Array&lt;Template&gt; get_templates(opts)
+# **list_templates**
+> Array&lt;Template&gt; list_templates(opts)
 
 Get a list of all templates
 
@@ -937,16 +937,17 @@ end
 
 api_instance = FormAPI::PDFApi.new
 opts = {
+  query: '2', # String | Search By Name
   page: 2, # Integer | Default: 1
   per_page: 1 # Integer | Default: 50
 }
 
 begin
   #Get a list of all templates
-  result = api_instance.get_templates(opts)
+  result = api_instance.list_templates(opts)
   p result
 rescue FormAPI::ApiError => e
-  puts "Exception when calling PDFApi->get_templates: #{e}"
+  puts "Exception when calling PDFApi->list_templates: #{e}"
 end
 ```
 
@@ -954,6 +955,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **query** | **String**| Search By Name | [optional] 
  **page** | **Integer**| Default: 1 | [optional] 
  **per_page** | **Integer**| Default: 50 | [optional] 
 

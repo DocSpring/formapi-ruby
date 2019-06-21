@@ -11,5 +11,5 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 =end
 
 module FormAPI
-  VERSION = '1.8.0'
+  VERSION = '1.9.0'
 end
