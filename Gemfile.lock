@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    form_api (1.9.0)
+    form_api (1.9.1)
       ffi (~> 1.0, >= 1.9.24)
-      json (~> 2.1, >= 2.1.0)
+      json (>= 1.8)
       typhoeus (~> 1.0, >= 1.0.1)
 
 GEM

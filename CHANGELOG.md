@@ -1,3 +1,6 @@
+### 1.9.1 [August 2, 2019]
+* Relax json dependency to support older versions (>= 1.8)
+
 ### 1.9.0 [June 22, 2019]
 * **BREAKING CHANGE** Renamed "Get Templates" endpoint to "List Templates". Added a search query parameter.
 
