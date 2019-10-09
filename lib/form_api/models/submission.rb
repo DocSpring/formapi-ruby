@@ -195,7 +195,7 @@ module FormAPI
       return false if @test.nil?
       return false if @expired.nil?
       return false if @state.nil?
-      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests', 'liquid_syntax_error', 'account_suspended', 'license_revoked'])
+      state_validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests', 'syntax_error', 'account_suspended', 'license_revoked'])
       return false unless state_validator.valid?(@state)
       true
     end
@@ -203,7 +203,7 @@ module FormAPI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests', 'liquid_syntax_error', 'account_suspended', 'license_revoked'])
+      validator = EnumAttributeValidator.new('String', ['pending', 'processed', 'invalid_data', 'error', 'image_download_failed', 'image_processing_failed', 'waiting_for_data_requests', 'syntax_error', 'account_suspended', 'license_revoked'])
       unless validator.valid?(state)
         fail ArgumentError, 'invalid value for "state", must be one of #{validator.allowable_values}.'
       end

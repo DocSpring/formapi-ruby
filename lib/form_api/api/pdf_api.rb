@@ -341,10 +341,64 @@ module FormAPI
       return data, status_code, headers
     end
 
+    # Create a folder
+    # @param create_folder_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Folder]
+    def create_folder(create_folder_data, opts = {})
+      data, _status_code, _headers = create_folder_with_http_info(create_folder_data, opts)
+      data
+    end
+
+    # Create a folder
+    # @param create_folder_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Folder, Fixnum, Hash)>] Folder data, response status code and response headers
+    def create_folder_with_http_info(create_folder_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.create_folder ...'
+      end
+      # verify the required parameter 'create_folder_data' is set
+      if @api_client.config.client_side_validation && create_folder_data.nil?
+        fail ArgumentError, "Missing the required parameter 'create_folder_data' when calling PDFApi.create_folder"
+      end
+      # resource path
+      local_var_path = '/folders/'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(create_folder_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Folder')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#create_folder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Upload a new PDF template with a file upload
     # @param template_document 
     # @param template_name 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :template_parent_folder_id 
     # @return [PendingTemplate]
     def create_template(template_document, template_name, opts = {})
       data, _status_code, _headers = create_template_with_http_info(template_document, template_name, opts)
@@ -355,6 +409,7 @@ module FormAPI
     # @param template_document 
     # @param template_name 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :template_parent_folder_id 
     # @return [Array<(PendingTemplate, Fixnum, Hash)>] PendingTemplate data, response status code and response headers
     def create_template_with_http_info(template_document, template_name, opts = {})
       if @api_client.config.debugging
@@ -385,6 +440,7 @@ module FormAPI
       form_params = {}
       form_params['template[document]'] = template_document
       form_params['template[name]'] = template_name
+      form_params['template[parent_folder_id]'] = opts[:'template_parent_folder_id'] if !opts[:'template_parent_folder_id'].nil?
 
       # http body (model)
       post_body = nil
@@ -451,6 +507,57 @@ module FormAPI
         :return_type => 'PendingTemplate')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PDFApi#create_template_from_upload\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a folder
+    # @param folder_id 
+    # @param [Hash] opts the optional parameters
+    # @return [Folder]
+    def delete_folder(folder_id, opts = {})
+      data, _status_code, _headers = delete_folder_with_http_info(folder_id, opts)
+      data
+    end
+
+    # Delete a folder
+    # @param folder_id 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Folder, Fixnum, Hash)>] Folder data, response status code and response headers
+    def delete_folder_with_http_info(folder_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.delete_folder ...'
+      end
+      # verify the required parameter 'folder_id' is set
+      if @api_client.config.client_side_validation && folder_id.nil?
+        fail ArgumentError, "Missing the required parameter 'folder_id' when calling PDFApi.delete_folder"
+      end
+      # resource path
+      local_var_path = '/folders/{folder_id}'.sub('{' + 'folder_id' + '}', folder_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Folder')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#delete_folder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -871,7 +978,7 @@ module FormAPI
       return data, status_code, headers
     end
 
-    # Check the status of an uploaded template
+    # Get a single template
     # @param template_id 
     # @param [Hash] opts the optional parameters
     # @return [Template]
@@ -880,7 +987,7 @@ module FormAPI
       data
     end
 
-    # Check the status of an uploaded template
+    # Get a single template
     # @param template_id 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Template, Fixnum, Hash)>] Template data, response status code and response headers
@@ -973,9 +1080,58 @@ module FormAPI
       return data, status_code, headers
     end
 
+    # Get a list of all folders
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :parent_folder_id Filter By Folder Id
+    # @return [Array<Folder>]
+    def list_folders(opts = {})
+      data, _status_code, _headers = list_folders_with_http_info(opts)
+      data
+    end
+
+    # Get a list of all folders
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :parent_folder_id Filter By Folder Id
+    # @return [Array<(Array<Folder>, Fixnum, Hash)>] Array<Folder> data, response status code and response headers
+    def list_folders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.list_folders ...'
+      end
+      # resource path
+      local_var_path = '/folders/'
+
+      # query parameters
+      query_params = {}
+      query_params[:'parent_folder_id'] = opts[:'parent_folder_id'] if !opts[:'parent_folder_id'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Array<Folder>')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#list_folders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get a list of all templates
     # @param [Hash] opts the optional parameters
     # @option opts [String] :query Search By Name
+    # @option opts [String] :parent_folder_id Filter By Folder Id
     # @option opts [Integer] :page Default: 1
     # @option opts [Integer] :per_page Default: 50
     # @return [Array<Template>]
@@ -987,6 +1143,7 @@ module FormAPI
     # Get a list of all templates
     # @param [Hash] opts the optional parameters
     # @option opts [String] :query Search By Name
+    # @option opts [String] :parent_folder_id Filter By Folder Id
     # @option opts [Integer] :page Default: 1
     # @option opts [Integer] :per_page Default: 50
     # @return [Array<(Array<Template>, Fixnum, Hash)>] Array<Template> data, response status code and response headers
@@ -1012,6 +1169,7 @@ module FormAPI
       # query parameters
       query_params = {}
       query_params[:'query'] = opts[:'query'] if !opts[:'query'].nil?
+      query_params[:'parent_folder_id'] = opts[:'parent_folder_id'] if !opts[:'parent_folder_id'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'per_page'] = opts[:'per_page'] if !opts[:'per_page'].nil?
 
@@ -1035,6 +1193,182 @@ module FormAPI
         :return_type => 'Array<Template>')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PDFApi#list_templates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Move a folder
+    # @param folder_id 
+    # @param move_folder_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Folder]
+    def move_folder_to_folder(folder_id, move_folder_data, opts = {})
+      data, _status_code, _headers = move_folder_to_folder_with_http_info(folder_id, move_folder_data, opts)
+      data
+    end
+
+    # Move a folder
+    # @param folder_id 
+    # @param move_folder_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Folder, Fixnum, Hash)>] Folder data, response status code and response headers
+    def move_folder_to_folder_with_http_info(folder_id, move_folder_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.move_folder_to_folder ...'
+      end
+      # verify the required parameter 'folder_id' is set
+      if @api_client.config.client_side_validation && folder_id.nil?
+        fail ArgumentError, "Missing the required parameter 'folder_id' when calling PDFApi.move_folder_to_folder"
+      end
+      # verify the required parameter 'move_folder_data' is set
+      if @api_client.config.client_side_validation && move_folder_data.nil?
+        fail ArgumentError, "Missing the required parameter 'move_folder_data' when calling PDFApi.move_folder_to_folder"
+      end
+      # resource path
+      local_var_path = '/folders/{folder_id}/move'.sub('{' + 'folder_id' + '}', folder_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(move_folder_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Folder')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#move_folder_to_folder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Move Template to folder
+    # @param template_id 
+    # @param move_template_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Template]
+    def move_template_to_folder(template_id, move_template_data, opts = {})
+      data, _status_code, _headers = move_template_to_folder_with_http_info(template_id, move_template_data, opts)
+      data
+    end
+
+    # Move Template to folder
+    # @param template_id 
+    # @param move_template_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Template, Fixnum, Hash)>] Template data, response status code and response headers
+    def move_template_to_folder_with_http_info(template_id, move_template_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.move_template_to_folder ...'
+      end
+      # verify the required parameter 'template_id' is set
+      if @api_client.config.client_side_validation && template_id.nil?
+        fail ArgumentError, "Missing the required parameter 'template_id' when calling PDFApi.move_template_to_folder"
+      end
+      # verify the required parameter 'move_template_data' is set
+      if @api_client.config.client_side_validation && move_template_data.nil?
+        fail ArgumentError, "Missing the required parameter 'move_template_data' when calling PDFApi.move_template_to_folder"
+      end
+      # resource path
+      local_var_path = '/templates/{template_id}/move'.sub('{' + 'template_id' + '}', template_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(move_template_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Template')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#move_template_to_folder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename a folder
+    # @param folder_id 
+    # @param rename_folder_data 
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def rename_folder(folder_id, rename_folder_data, opts = {})
+      rename_folder_with_http_info(folder_id, rename_folder_data, opts)
+      nil
+    end
+
+    # Rename a folder
+    # @param folder_id 
+    # @param rename_folder_data 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def rename_folder_with_http_info(folder_id, rename_folder_data, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PDFApi.rename_folder ...'
+      end
+      # verify the required parameter 'folder_id' is set
+      if @api_client.config.client_side_validation && folder_id.nil?
+        fail ArgumentError, "Missing the required parameter 'folder_id' when calling PDFApi.rename_folder"
+      end
+      # verify the required parameter 'rename_folder_data' is set
+      if @api_client.config.client_side_validation && rename_folder_data.nil?
+        fail ArgumentError, "Missing the required parameter 'rename_folder_data' when calling PDFApi.rename_folder"
+      end
+      # resource path
+      local_var_path = '/folders/{folder_id}/rename'.sub('{' + 'folder_id' + '}', folder_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(rename_folder_data)
+      auth_names = ['api_token_basic']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PDFApi#rename_folder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

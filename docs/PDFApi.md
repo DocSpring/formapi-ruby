@@ -10,8 +10,10 @@ Method | HTTP request | Description
 [**combine_submissions**](PDFApi.md#combine_submissions) | **POST** /combined_submissions | Merge generated PDFs together
 [**create_custom_file_from_upload**](PDFApi.md#create_custom_file_from_upload) | **POST** /custom_files | Create a new custom file from a cached presign upload
 [**create_data_request_token**](PDFApi.md#create_data_request_token) | **POST** /data_requests/{data_request_id}/tokens | Creates a new data request token for form authentication
+[**create_folder**](PDFApi.md#create_folder) | **POST** /folders/ | Create a folder
 [**create_template**](PDFApi.md#create_template) | **POST** /templates | Upload a new PDF template with a file upload
 [**create_template_from_upload**](PDFApi.md#create_template_from_upload) | **POST** /templates?v&#x3D;2 | Create a new PDF template from a cached presign upload
+[**delete_folder**](PDFApi.md#delete_folder) | **DELETE** /folders/{folder_id} | Delete a folder
 [**expire_combined_submission**](PDFApi.md#expire_combined_submission) | **DELETE** /combined_submissions/{combined_submission_id} | Expire a combined submission
 [**expire_submission**](PDFApi.md#expire_submission) | **DELETE** /submissions/{submission_id} | Expire a PDF submission
 [**generate_pdf**](PDFApi.md#generate_pdf) | **POST** /templates/{template_id}/submissions | Generates a new PDF
@@ -20,9 +22,13 @@ Method | HTTP request | Description
 [**get_presign_url**](PDFApi.md#get_presign_url) | **GET** /uploads/presign | Get a presigned URL so that you can upload a file to our AWS S3 bucket
 [**get_submission**](PDFApi.md#get_submission) | **GET** /submissions/{submission_id} | Check the status of a PDF
 [**get_submission_batch**](PDFApi.md#get_submission_batch) | **GET** /submissions/batches/{submission_batch_id} | Check the status of a submission batch job
-[**get_template**](PDFApi.md#get_template) | **GET** /templates/{template_id} | Check the status of an uploaded template
+[**get_template**](PDFApi.md#get_template) | **GET** /templates/{template_id} | Get a single template
 [**get_template_schema**](PDFApi.md#get_template_schema) | **GET** /templates/{template_id}/schema | Fetch the JSON schema for a template
+[**list_folders**](PDFApi.md#list_folders) | **GET** /folders/ | Get a list of all folders
 [**list_templates**](PDFApi.md#list_templates) | **GET** /templates | Get a list of all templates
+[**move_folder_to_folder**](PDFApi.md#move_folder_to_folder) | **POST** /folders/{folder_id}/move | Move a folder
+[**move_template_to_folder**](PDFApi.md#move_template_to_folder) | **POST** /templates/{template_id}/move | Move Template to folder
+[**rename_folder**](PDFApi.md#rename_folder) | **POST** /folders/{folder_id}/rename | Rename a folder
 [**test_authentication**](PDFApi.md#test_authentication) | **GET** /authentication | Test Authentication
 [**update_data_request**](PDFApi.md#update_data_request) | **PUT** /data_requests/{data_request_id} | Update a submission data request
 
@@ -323,8 +329,57 @@ Name | Type | Description  | Notes
 
 
 
+# **create_folder**
+> Folder create_folder(create_folder_data)
+
+Create a folder
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+create_folder_data = FormAPI::CreateFolderData.new # CreateFolderData | 
+
+begin
+  #Create a folder
+  result = api_instance.create_folder(create_folder_data)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->create_folder: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_folder_data** | [**CreateFolderData**](CreateFolderData.md)|  | 
+
+### Return type
+
+[**Folder**](Folder.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
 # **create_template**
-> PendingTemplate create_template(template_document, template_name)
+> PendingTemplate create_template(template_document, template_name, opts)
 
 Upload a new PDF template with a file upload
 
@@ -342,10 +397,13 @@ end
 api_instance = FormAPI::PDFApi.new
 template_document = File.new('/path/to/file') # File | 
 template_name = 'template_name_example' # String | 
+opts = {
+  template_parent_folder_id: 'template_parent_folder_id_example' # String | 
+}
 
 begin
   #Upload a new PDF template with a file upload
-  result = api_instance.create_template(template_document, template_name)
+  result = api_instance.create_template(template_document, template_name, opts)
   p result
 rescue FormAPI::ApiError => e
   puts "Exception when calling PDFApi->create_template: #{e}"
@@ -358,6 +416,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **template_document** | **File**|  | 
  **template_name** | **String**|  | 
+ **template_parent_folder_id** | **String**|  | [optional] 
 
 ### Return type
 
@@ -419,6 +478,55 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **delete_folder**
+> Folder delete_folder(folder_id)
+
+Delete a folder
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+folder_id = 'fld_000000000000000001' # String | 
+
+begin
+  #Delete a folder
+  result = api_instance.delete_folder(folder_id)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->delete_folder: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **folder_id** | **String**|  | 
+
+### Return type
+
+[**Folder**](Folder.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 
@@ -824,7 +932,7 @@ Name | Type | Description  | Notes
 # **get_template**
 > Template get_template(template_id)
 
-Check the status of an uploaded template
+Get a single template
 
 ### Example
 ```ruby
@@ -838,10 +946,10 @@ FormAPI.configure do |config|
 end
 
 api_instance = FormAPI::PDFApi.new
-template_id = 'tpl_000000000000000001' # String | 
+template_id = 'tpl_000000000000000011' # String | 
 
 begin
-  #Check the status of an uploaded template
+  #Get a single template
   result = api_instance.get_template(template_id)
   p result
 rescue FormAPI::ApiError => e
@@ -919,6 +1027,57 @@ Name | Type | Description  | Notes
 
 
 
+# **list_folders**
+> Array&lt;Folder&gt; list_folders(opts)
+
+Get a list of all folders
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+opts = {
+  parent_folder_id: 'fld_000000000000000002' # String | Filter By Folder Id
+}
+
+begin
+  #Get a list of all folders
+  result = api_instance.list_folders(opts)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->list_folders: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **parent_folder_id** | **String**| Filter By Folder Id | [optional] 
+
+### Return type
+
+[**Array&lt;Folder&gt;**](Folder.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
 # **list_templates**
 > Array&lt;Template&gt; list_templates(opts)
 
@@ -938,6 +1097,7 @@ end
 api_instance = FormAPI::PDFApi.new
 opts = {
   query: '2', # String | Search By Name
+  parent_folder_id: 'fld_000000000000000001', # String | Filter By Folder Id
   page: 2, # Integer | Default: 1
   per_page: 1 # Integer | Default: 50
 }
@@ -956,6 +1116,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **query** | **String**| Search By Name | [optional] 
+ **parent_folder_id** | **String**| Filter By Folder Id | [optional] 
  **page** | **Integer**| Default: 1 | [optional] 
  **per_page** | **Integer**| Default: 50 | [optional] 
 
@@ -970,6 +1131,158 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
+# **move_folder_to_folder**
+> Folder move_folder_to_folder(folder_id, move_folder_data)
+
+Move a folder
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+folder_id = 'fld_000000000000000001' # String | 
+move_folder_data = FormAPI::MoveFolderData.new # MoveFolderData | 
+
+begin
+  #Move a folder
+  result = api_instance.move_folder_to_folder(folder_id, move_folder_data)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->move_folder_to_folder: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **folder_id** | **String**|  | 
+ **move_folder_data** | [**MoveFolderData**](MoveFolderData.md)|  | 
+
+### Return type
+
+[**Folder**](Folder.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **move_template_to_folder**
+> Template move_template_to_folder(template_id, move_template_data)
+
+Move Template to folder
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+template_id = 'tpl_000000000000000001' # String | 
+move_template_data = FormAPI::MoveTemplateData.new # MoveTemplateData | 
+
+begin
+  #Move Template to folder
+  result = api_instance.move_template_to_folder(template_id, move_template_data)
+  p result
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->move_template_to_folder: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **template_id** | **String**|  | 
+ **move_template_data** | [**MoveTemplateData**](MoveTemplateData.md)|  | 
+
+### Return type
+
+[**Template**](Template.md)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **rename_folder**
+> rename_folder(folder_id, rename_folder_data)
+
+Rename a folder
+
+### Example
+```ruby
+# load the gem
+require 'form_api'
+# setup authorization
+FormAPI.configure do |config|
+  # Configure HTTP basic authorization: api_token_basic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = FormAPI::PDFApi.new
+folder_id = 'fld_000000000000000001' # String | 
+rename_folder_data = FormAPI::RenameFolderData.new # RenameFolderData | 
+
+begin
+  #Rename a folder
+  api_instance.rename_folder(folder_id, rename_folder_data)
+rescue FormAPI::ApiError => e
+  puts "Exception when calling PDFApi->rename_folder: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **folder_id** | **String**|  | 
+ **rename_folder_data** | [**RenameFolderData**](RenameFolderData.md)|  | 
+
+### Return type
+
+nil (empty response body)
+
+### Authorization
+
+[api_token_basic](../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

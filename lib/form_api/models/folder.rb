@@ -13,98 +13,32 @@ OpenAPI Generator version: 3.3.0-SNAPSHOT
 require 'date'
 
 module FormAPI
-  class PendingTemplate
-    attr_accessor :expiration_interval
-
-    attr_accessor :webhook_url
+  class Folder
+    attr_accessor :path
 
     attr_accessor :parent_folder_id
 
-    attr_accessor :expire_after
-
-    attr_accessor :allow_additional_properties
-
-    attr_accessor :public_submissions
-
-    attr_accessor :slack_webhook_url
-
-    attr_accessor :path
-
-    attr_accessor :public_web_form
-
-    attr_accessor :editable_submissions
-
-    attr_accessor :expire_submissions
-
     attr_accessor :name
 
-    attr_accessor :template_type
-
     attr_accessor :id
-
-    attr_accessor :redirect_url
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'expiration_interval' => :'expiration_interval',
-        :'webhook_url' => :'webhook_url',
-        :'parent_folder_id' => :'parent_folder_id',
-        :'expire_after' => :'expire_after',
-        :'allow_additional_properties' => :'allow_additional_properties',
-        :'public_submissions' => :'public_submissions',
-        :'slack_webhook_url' => :'slack_webhook_url',
         :'path' => :'path',
-        :'public_web_form' => :'public_web_form',
-        :'editable_submissions' => :'editable_submissions',
-        :'expire_submissions' => :'expire_submissions',
+        :'parent_folder_id' => :'parent_folder_id',
         :'name' => :'name',
-        :'template_type' => :'template_type',
-        :'id' => :'id',
-        :'redirect_url' => :'redirect_url'
+        :'id' => :'id'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'expiration_interval' => :'String',
-        :'webhook_url' => :'String',
-        :'parent_folder_id' => :'String',
-        :'expire_after' => :'Float',
-        :'allow_additional_properties' => :'BOOLEAN',
-        :'public_submissions' => :'BOOLEAN',
-        :'slack_webhook_url' => :'String',
         :'path' => :'String',
-        :'public_web_form' => :'BOOLEAN',
-        :'editable_submissions' => :'BOOLEAN',
-        :'expire_submissions' => :'BOOLEAN',
+        :'parent_folder_id' => :'String',
         :'name' => :'String',
-        :'template_type' => :'String',
-        :'id' => :'String',
-        :'redirect_url' => :'String'
+        :'id' => :'String'
       }
     end
 
@@ -116,64 +50,20 @@ module FormAPI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'expiration_interval')
-        self.expiration_interval = attributes[:'expiration_interval']
-      end
-
-      if attributes.has_key?(:'webhook_url')
-        self.webhook_url = attributes[:'webhook_url']
+      if attributes.has_key?(:'path')
+        self.path = attributes[:'path']
       end
 
       if attributes.has_key?(:'parent_folder_id')
         self.parent_folder_id = attributes[:'parent_folder_id']
       end
 
-      if attributes.has_key?(:'expire_after')
-        self.expire_after = attributes[:'expire_after']
-      end
-
-      if attributes.has_key?(:'allow_additional_properties')
-        self.allow_additional_properties = attributes[:'allow_additional_properties']
-      end
-
-      if attributes.has_key?(:'public_submissions')
-        self.public_submissions = attributes[:'public_submissions']
-      end
-
-      if attributes.has_key?(:'slack_webhook_url')
-        self.slack_webhook_url = attributes[:'slack_webhook_url']
-      end
-
-      if attributes.has_key?(:'path')
-        self.path = attributes[:'path']
-      end
-
-      if attributes.has_key?(:'public_web_form')
-        self.public_web_form = attributes[:'public_web_form']
-      end
-
-      if attributes.has_key?(:'editable_submissions')
-        self.editable_submissions = attributes[:'editable_submissions']
-      end
-
-      if attributes.has_key?(:'expire_submissions')
-        self.expire_submissions = attributes[:'expire_submissions']
-      end
-
       if attributes.has_key?(:'name')
         self.name = attributes[:'name']
       end
 
-      if attributes.has_key?(:'template_type')
-        self.template_type = attributes[:'template_type']
-      end
-
       if attributes.has_key?(:'id')
         self.id = attributes[:'id']
-      end
-
-      if attributes.has_key?(:'redirect_url')
-        self.redirect_url = attributes[:'redirect_url']
       end
     end
 
@@ -187,19 +77,7 @@ module FormAPI
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      expiration_interval_validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
-      return false unless expiration_interval_validator.valid?(@expiration_interval)
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] expiration_interval Object to be assigned
-    def expiration_interval=(expiration_interval)
-      validator = EnumAttributeValidator.new('String', ['minutes', 'hours', 'days'])
-      unless validator.valid?(expiration_interval)
-        fail ArgumentError, 'invalid value for "expiration_interval", must be one of #{validator.allowable_values}.'
-      end
-      @expiration_interval = expiration_interval
     end
 
     # Checks equality by comparing each attribute.
@@ -207,21 +85,10 @@ module FormAPI
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          expiration_interval == o.expiration_interval &&
-          webhook_url == o.webhook_url &&
-          parent_folder_id == o.parent_folder_id &&
-          expire_after == o.expire_after &&
-          allow_additional_properties == o.allow_additional_properties &&
-          public_submissions == o.public_submissions &&
-          slack_webhook_url == o.slack_webhook_url &&
           path == o.path &&
-          public_web_form == o.public_web_form &&
-          editable_submissions == o.editable_submissions &&
-          expire_submissions == o.expire_submissions &&
+          parent_folder_id == o.parent_folder_id &&
           name == o.name &&
-          template_type == o.template_type &&
-          id == o.id &&
-          redirect_url == o.redirect_url
+          id == o.id
     end
 
     # @see the `==` method
@@ -233,7 +100,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [expiration_interval, webhook_url, parent_folder_id, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, path, public_web_form, editable_submissions, expire_submissions, name, template_type, id, redirect_url].hash
+      [path, parent_folder_id, name, id].hash
     end
 
     # Builds the object from hash

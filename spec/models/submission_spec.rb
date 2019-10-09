@@ -77,7 +77,7 @@ describe 'Submission' do
   describe 'test attribute "state"' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["pending", "processed", "invalid_data", "error", "image_download_failed", "image_processing_failed", "waiting_for_data_requests", "liquid_syntax_error", "account_suspended", "license_revoked"])
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["pending", "processed", "invalid_data", "error", "image_download_failed", "image_processing_failed", "waiting_for_data_requests", "syntax_error", "account_suspended", "license_revoked"])
       # validator.allowable_values.each do |value|
       #   expect { @instance.state = value }.not_to raise_error
       # end

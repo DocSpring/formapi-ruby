@@ -18,6 +18,8 @@ module FormAPI
 
     attr_accessor :webhook_url
 
+    attr_accessor :parent_folder_id
+
     attr_accessor :expire_after
 
     attr_accessor :allow_additional_properties
@@ -25,6 +27,8 @@ module FormAPI
     attr_accessor :public_submissions
 
     attr_accessor :slack_webhook_url
+
+    attr_accessor :path
 
     attr_accessor :public_web_form
 
@@ -34,6 +38,8 @@ module FormAPI
 
     attr_accessor :name
 
+    attr_accessor :permanent_document_url
+
     attr_accessor :template_type
 
     attr_accessor :id
@@ -41,6 +47,8 @@ module FormAPI
     attr_accessor :page_dimensions
 
     attr_accessor :redirect_url
+
+    attr_accessor :document_url
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -69,18 +77,22 @@ module FormAPI
       {
         :'expiration_interval' => :'expiration_interval',
         :'webhook_url' => :'webhook_url',
+        :'parent_folder_id' => :'parent_folder_id',
         :'expire_after' => :'expire_after',
         :'allow_additional_properties' => :'allow_additional_properties',
         :'public_submissions' => :'public_submissions',
         :'slack_webhook_url' => :'slack_webhook_url',
+        :'path' => :'path',
         :'public_web_form' => :'public_web_form',
         :'editable_submissions' => :'editable_submissions',
         :'expire_submissions' => :'expire_submissions',
         :'name' => :'name',
+        :'permanent_document_url' => :'permanent_document_url',
         :'template_type' => :'template_type',
         :'id' => :'id',
         :'page_dimensions' => :'page_dimensions',
-        :'redirect_url' => :'redirect_url'
+        :'redirect_url' => :'redirect_url',
+        :'document_url' => :'document_url'
       }
     end
 
@@ -89,18 +101,22 @@ module FormAPI
       {
         :'expiration_interval' => :'String',
         :'webhook_url' => :'String',
+        :'parent_folder_id' => :'String',
         :'expire_after' => :'Float',
         :'allow_additional_properties' => :'BOOLEAN',
         :'public_submissions' => :'BOOLEAN',
         :'slack_webhook_url' => :'String',
+        :'path' => :'String',
         :'public_web_form' => :'BOOLEAN',
         :'editable_submissions' => :'BOOLEAN',
         :'expire_submissions' => :'BOOLEAN',
         :'name' => :'String',
+        :'permanent_document_url' => :'String',
         :'template_type' => :'String',
         :'id' => :'String',
         :'page_dimensions' => :'Array<Array<Float>>',
-        :'redirect_url' => :'String'
+        :'redirect_url' => :'String',
+        :'document_url' => :'String'
       }
     end
 
@@ -120,6 +136,10 @@ module FormAPI
         self.webhook_url = attributes[:'webhook_url']
       end
 
+      if attributes.has_key?(:'parent_folder_id')
+        self.parent_folder_id = attributes[:'parent_folder_id']
+      end
+
       if attributes.has_key?(:'expire_after')
         self.expire_after = attributes[:'expire_after']
       end
@@ -134,6 +154,10 @@ module FormAPI
 
       if attributes.has_key?(:'slack_webhook_url')
         self.slack_webhook_url = attributes[:'slack_webhook_url']
+      end
+
+      if attributes.has_key?(:'path')
+        self.path = attributes[:'path']
       end
 
       if attributes.has_key?(:'public_web_form')
@@ -152,6 +176,10 @@ module FormAPI
         self.name = attributes[:'name']
       end
 
+      if attributes.has_key?(:'permanent_document_url')
+        self.permanent_document_url = attributes[:'permanent_document_url']
+      end
+
       if attributes.has_key?(:'template_type')
         self.template_type = attributes[:'template_type']
       end
@@ -168,6 +196,10 @@ module FormAPI
 
       if attributes.has_key?(:'redirect_url')
         self.redirect_url = attributes[:'redirect_url']
+      end
+
+      if attributes.has_key?(:'document_url')
+        self.document_url = attributes[:'document_url']
       end
     end
 
@@ -203,18 +235,22 @@ module FormAPI
       self.class == o.class &&
           expiration_interval == o.expiration_interval &&
           webhook_url == o.webhook_url &&
+          parent_folder_id == o.parent_folder_id &&
           expire_after == o.expire_after &&
           allow_additional_properties == o.allow_additional_properties &&
           public_submissions == o.public_submissions &&
           slack_webhook_url == o.slack_webhook_url &&
+          path == o.path &&
           public_web_form == o.public_web_form &&
           editable_submissions == o.editable_submissions &&
           expire_submissions == o.expire_submissions &&
           name == o.name &&
+          permanent_document_url == o.permanent_document_url &&
           template_type == o.template_type &&
           id == o.id &&
           page_dimensions == o.page_dimensions &&
-          redirect_url == o.redirect_url
+          redirect_url == o.redirect_url &&
+          document_url == o.document_url
     end
 
     # @see the `==` method
@@ -226,7 +262,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [expiration_interval, webhook_url, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, public_web_form, editable_submissions, expire_submissions, name, template_type, id, page_dimensions, redirect_url].hash
+      [expiration_interval, webhook_url, parent_folder_id, expire_after, allow_additional_properties, public_submissions, slack_webhook_url, path, public_web_form, editable_submissions, expire_submissions, name, permanent_document_url, template_type, id, page_dimensions, redirect_url, document_url].hash
     end
 
     # Builds the object from hash

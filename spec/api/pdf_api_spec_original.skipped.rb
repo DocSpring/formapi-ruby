@@ -112,17 +112,33 @@ describe 'PDFApi' do
       expect(result).to_not be_nil
     end
   end
+  # integration tests for create_folder
+  # Create a folder
+  # @param create_folder_data 
+  # @param [Hash] opts the optional parameters
+  # @return [Folder]
+  describe 'create_folder test' do
+    it 'should work' do
+      create_folder_data = FormAPI::CreateFolderData.new # CreateFolderData | 
+      result = api_instance.create_folder(create_folder_data)
+      expect(result).to_not be_nil
+    end
+  end
   # integration tests for create_template
   # Upload a new PDF template with a file upload
   # @param template_document 
   # @param template_name 
   # @param [Hash] opts the optional parameters
+  # @option opts [String] :template_parent_folder_id 
   # @return [PendingTemplate]
   describe 'create_template test' do
     it 'should work' do
       template_document = File.new('/path/to/file') # File | 
       template_name = 'template_name_example' # String | 
-      result = api_instance.create_template(template_document, template_name)
+      opts = {
+        template_parent_folder_id: 'template_parent_folder_id_example' # String | 
+      }
+      result = api_instance.create_template(template_document, template_name, opts)
       expect(result).to_not be_nil
     end
   end
@@ -135,6 +151,18 @@ describe 'PDFApi' do
     it 'should work' do
       create_template_data = FormAPI::CreateTemplateData.new # CreateTemplateData | 
       result = api_instance.create_template_from_upload(create_template_data)
+      expect(result).to_not be_nil
+    end
+  end
+  # integration tests for delete_folder
+  # Delete a folder
+  # @param folder_id 
+  # @param [Hash] opts the optional parameters
+  # @return [Folder]
+  describe 'delete_folder test' do
+    it 'should work' do
+      folder_id = 'fld_000000000000000001' # String | 
+      result = api_instance.delete_folder(folder_id)
       expect(result).to_not be_nil
     end
   end
@@ -243,13 +271,13 @@ describe 'PDFApi' do
     end
   end
   # integration tests for get_template
-  # Check the status of an uploaded template
+  # Get a single template
   # @param template_id 
   # @param [Hash] opts the optional parameters
   # @return [Template]
   describe 'get_template test' do
     it 'should work' do
-      template_id = 'tpl_000000000000000001' # String | 
+      template_id = 'tpl_000000000000000011' # String | 
       result = api_instance.get_template(template_id)
       expect(result).to_not be_nil
     end
@@ -266,10 +294,25 @@ describe 'PDFApi' do
       expect(result).to_not be_nil
     end
   end
+  # integration tests for list_folders
+  # Get a list of all folders
+  # @param [Hash] opts the optional parameters
+  # @option opts [String] :parent_folder_id Filter By Folder Id
+  # @return [Array<Folder>]
+  describe 'list_folders test' do
+    it 'should work' do
+      opts = {
+        parent_folder_id: 'fld_000000000000000002' # String | Filter By Folder Id
+      }
+      result = api_instance.list_folders(opts)
+      expect(result).to_not be_nil
+    end
+  end
   # integration tests for list_templates
   # Get a list of all templates
   # @param [Hash] opts the optional parameters
   # @option opts [String] :query Search By Name
+  # @option opts [String] :parent_folder_id Filter By Folder Id
   # @option opts [Integer] :page Default: 1
   # @option opts [Integer] :per_page Default: 50
   # @return [Array<Template>]
@@ -277,10 +320,53 @@ describe 'PDFApi' do
     it 'should work' do
       opts = {
         query: '2', # String | Search By Name
+        parent_folder_id: 'fld_000000000000000001', # String | Filter By Folder Id
         page: 2, # Integer | Default: 1
         per_page: 1 # Integer | Default: 50
       }
       result = api_instance.list_templates(opts)
+      expect(result).to_not be_nil
+    end
+  end
+  # integration tests for move_folder_to_folder
+  # Move a folder
+  # @param folder_id 
+  # @param move_folder_data 
+  # @param [Hash] opts the optional parameters
+  # @return [Folder]
+  describe 'move_folder_to_folder test' do
+    it 'should work' do
+      folder_id = 'fld_000000000000000001' # String | 
+      move_folder_data = FormAPI::MoveFolderData.new # MoveFolderData | 
+      result = api_instance.move_folder_to_folder(folder_id, move_folder_data)
+      expect(result).to_not be_nil
+    end
+  end
+  # integration tests for move_template_to_folder
+  # Move Template to folder
+  # @param template_id 
+  # @param move_template_data 
+  # @param [Hash] opts the optional parameters
+  # @return [Template]
+  describe 'move_template_to_folder test' do
+    it 'should work' do
+      template_id = 'tpl_000000000000000001' # String | 
+      move_template_data = FormAPI::MoveTemplateData.new # MoveTemplateData | 
+      result = api_instance.move_template_to_folder(template_id, move_template_data)
+      expect(result).to_not be_nil
+    end
+  end
+  # integration tests for rename_folder
+  # Rename a folder
+  # @param folder_id 
+  # @param rename_folder_data 
+  # @param [Hash] opts the optional parameters
+  # @return [nil]
+  describe 'rename_folder test' do
+    it 'should work' do
+      folder_id = 'fld_000000000000000001' # String | 
+      rename_folder_data = FormAPI::RenameFolderData.new # RenameFolderData | 
+      api_instance.rename_folder(folder_id, rename_folder_data)
       expect(result).to_not be_nil
     end
   end
