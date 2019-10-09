@@ -34,6 +34,8 @@ module FormAPI
 
     attr_accessor :download_url
 
+    attr_accessor :permanent_download_url
+
     attr_accessor :batch_id
 
     attr_accessor :data_requests
@@ -75,6 +77,7 @@ module FormAPI
         :'state' => :'state',
         :'metadata' => :'metadata',
         :'download_url' => :'download_url',
+        :'permanent_download_url' => :'permanent_download_url',
         :'batch_id' => :'batch_id',
         :'data_requests' => :'data_requests',
         :'actions' => :'actions'
@@ -94,6 +97,7 @@ module FormAPI
         :'state' => :'String',
         :'metadata' => :'Object',
         :'download_url' => :'String',
+        :'permanent_download_url' => :'String',
         :'batch_id' => :'String',
         :'data_requests' => :'Array<SubmissionDataRequest>',
         :'actions' => :'Array<SubmissionAction>'
@@ -146,6 +150,10 @@ module FormAPI
 
       if attributes.has_key?(:'download_url')
         self.download_url = attributes[:'download_url']
+      end
+
+      if attributes.has_key?(:'permanent_download_url')
+        self.permanent_download_url = attributes[:'permanent_download_url']
       end
 
       if attributes.has_key?(:'batch_id')
@@ -225,6 +233,7 @@ module FormAPI
           state == o.state &&
           metadata == o.metadata &&
           download_url == o.download_url &&
+          permanent_download_url == o.permanent_download_url &&
           batch_id == o.batch_id &&
           data_requests == o.data_requests &&
           actions == o.actions
@@ -239,7 +248,7 @@ module FormAPI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, template_id, test, editable, expired, expires_at, processed_at, state, metadata, download_url, batch_id, data_requests, actions].hash
+      [id, template_id, test, editable, expired, expires_at, processed_at, state, metadata, download_url, permanent_download_url, batch_id, data_requests, actions].hash
     end
 
     # Builds the object from hash
